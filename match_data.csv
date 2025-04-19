@@ -1,0 +1,21 @@
+team1,team2,venue,date,toss_winner,toss_decision,team1_score,team2_score,team1_wickets,team2_wickets,winner,result,pitch_type,weather
+Mumbai Indians,Chennai Super Kings,Wankhede Stadium,2023-04-10,Mumbai Indians,bat,185,170,5,7,Mumbai Indians,by 15 runs,flat,sunny
+Royal Challengers Bangalore,Kolkata Knight Riders,M. Chinnaswamy Stadium,2023-04-12,Kolkata Knight Riders,field,165,168,8,6,Kolkata Knight Riders,by 2 wickets,flat,overcast
+Delhi Capitals,Punjab Kings,Arun Jaitley Stadium,2023-04-14,Delhi Capitals,bat,210,185,4,10,Delhi Capitals,by 25 runs,high-scoring,clear
+Rajasthan Royals,Sunrisers Hyderabad,Sawai Mansingh Stadium,2023-04-15,Rajasthan Royals,bat,175,172,6,9,Rajasthan Royals,by 3 runs,spin-friendly,dry
+Chennai Super Kings,Gujarat Titans,MA Chidambaram Stadium,2023-04-17,Chennai Super Kings,bat,155,158,9,5,Gujarat Titans,by 5 wickets,slow,humid
+Kolkata Knight Riders,Lucknow Super Giants,Eden Gardens,2023-04-19,Kolkata Knight Riders,bat,182,178,7,8,Kolkata Knight Riders,by 4 runs,balanced,cloudy
+Punjab Kings,Mumbai Indians,PCA Stadium,2023-04-21,Punjab Kings,field,190,193,5,4,Punjab Kings,by 6 wickets,flat,sunny
+Sunrisers Hyderabad,Royal Challengers Bangalore,Rajiv Gandhi Stadium,2023-04-23,Sunrisers Hyderabad,bat,168,165,8,9,Sunrisers Hyderabad,by 3 runs,pace-friendly,night
+Gujarat Titans,Rajasthan Royals,Narendra Modi Stadium,2023-04-25,Gujarat Titans,field,205,208,3,6,Gujarat Titans,by 4 wickets,high-scoring,clear
+Lucknow Super Giants,Delhi Capitals,BRSABV Stadium,2023-04-27,Lucknow Super Giants,bat,178,175,6,8,Lucknow Super Giants,by 3 runs,balanced,humid
+Mumbai Indians,Royal Challengers Bangalore,Wankhede Stadium,2023-04-29,Mumbai Indians,bat,195,190,4,7,Mumbai Indians,by 5 runs,flat,night
+Chennai Super Kings,Kolkata Knight Riders,MA Chidambaram Stadium,2023-05-01,Chennai Super Kings,field,185,182,7,6,Chennai Super Kings,by 3 wickets,spin-friendly,dry
+Punjab Kings,Rajasthan Royals,PCA Stadium,2023-05-03,Punjab Kings,bat,172,170,8,9,Punjab Kings,by 2 runs,slow,overcast
+Delhi Capitals,Sunrisers Hyderabad,Arun Jaitley Stadium,2023-05-05,Delhi Capitals,bat,198,195,5,8,Delhi Capitals,by 3 runs,high-scoring,clear
+Gujarat Titans,Lucknow Super Giants,Narendra Modi Stadium,2023-05-07,Gujarat Titans,bat,188,184,6,7,Gujarat Titans,by 4 runs,balanced,humid
+Kolkata Knight Riders,Mumbai Indians,Eden Gardens,2023-05-09,Kolkata Knight Riders,field,175,178,9,5,Kolkata Knight Riders,by 5 wickets,spin-friendly,cloudy
+Royal Challengers Bangalore,Chennai Super Kings,M. Chinnaswamy Stadium,2023-05-11,Royal Challengers Bangalore,bat,165,168,8,6,Chennai Super Kings,by 3 wickets,pace-friendly,night
+Rajasthan Royals,Delhi Capitals,Sawai Mansingh Stadium,2023-05-13,Rajasthan Royals,field,182,185,7,4,Delhi Capitals,by 3 runs,balanced,dry
+Sunrisers Hyderabad,Punjab Kings,Rajiv Gandhi Stadium,2023-05-15,Sunrisers Hyderabad,bat,195,190,4,8,Sunrisers Hyderabad,by 5 runs,flat,sunny
+Lucknow Super Giants,Gujarat Titans,BRSABV Stadium,2023-05-17,Lucknow Super Giants,bat,170,172,8,5,Gujarat Titans,by 5 wickets,slow,humid
