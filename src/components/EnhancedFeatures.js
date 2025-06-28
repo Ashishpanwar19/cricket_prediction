@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Target, Users, BarChart3, Zap, Star, TrendingUp, Award } from 'lucide-react';
+import CricketFieldVisualization from './CricketFieldVisualization';
 
 // Enhanced team data with more detailed information
 const enhancedTeamData = {
@@ -358,6 +359,7 @@ function WinProbabilityCalculator({ team1, team2 }) {
 export default function EnhancedFeatures() {
   const [selectedTeam1, setSelectedTeam1] = useState('Mumbai Indians');
   const [selectedTeam2, setSelectedTeam2] = useState('Chennai Super Kings');
+  const [activeView, setActiveView] = useState('overview');
 
   return (
     <div className="space-y-8">
@@ -375,141 +377,194 @@ export default function EnhancedFeatures() {
         </p>
       </motion.div>
 
-      {/* Interactive Team Selection */}
+      {/* View Selector */}
       <motion.div
-        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
-        initial={{ opacity: 0, y: 50 }}
+        className="flex justify-center gap-4"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.1 }}
       >
-        <div className="flex items-center gap-3 mb-8">
-          <Users className="text-blue-400" size={32} />
-          <h2 className="text-3xl font-bold text-white">Interactive Team Selection</h2>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <InteractiveTeamSelector
-            selectedTeam={selectedTeam1}
-            onTeamSelect={setSelectedTeam1}
-            label="Select Team 1"
-          />
-          <InteractiveTeamSelector
-            selectedTeam={selectedTeam2}
-            onTeamSelect={setSelectedTeam2}
-            label="Select Team 2"
-          />
-        </div>
-
-        {/* Match Preview */}
-        <motion.div
-          className="mt-8 p-6 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl border border-blue-400/30"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+        <button
+          onClick={() => setActiveView('overview')}
+          className={`px-6 py-3 rounded-xl transition-all duration-300 ${
+            activeView === 'overview'
+              ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+              : 'bg-white/10 text-white hover:bg-white/20'
+          }`}
         >
-          <div className="flex items-center justify-center gap-8">
-            <div className="text-center">
-              <img
-                src={enhancedTeamData[selectedTeam1].logo}
-                alt={selectedTeam1}
-                className="w-20 h-20 rounded-full mx-auto mb-2 border-3 border-blue-400"
-              />
-              <h3 className="text-white font-bold">{selectedTeam1}</h3>
-              <p className="text-blue-300 text-sm">{enhancedTeamData[selectedTeam1].captain}</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">VS</div>
-              <div className="text-yellow-400 text-sm">IPL 2024</div>
-            </div>
-            
-            <div className="text-center">
-              <img
-                src={enhancedTeamData[selectedTeam2].logo}
-                alt={selectedTeam2}
-                className="w-20 h-20 rounded-full mx-auto mb-2 border-3 border-red-400"
-              />
-              <h3 className="text-white font-bold">{selectedTeam2}</h3>
-              <p className="text-red-300 text-sm">{enhancedTeamData[selectedTeam2].captain}</p>
-            </div>
-          </div>
-        </motion.div>
+          Overview & Predictions
+        </button>
+        <button
+          onClick={() => setActiveView('field')}
+          className={`px-6 py-3 rounded-xl transition-all duration-300 ${
+            activeView === 'field'
+              ? 'bg-gradient-to-r from-green-500 to-blue-600 text-white'
+              : 'bg-white/10 text-white hover:bg-white/20'
+          }`}
+        >
+          Live Field Visualization
+        </button>
       </motion.div>
 
-      {/* Real-time Predictions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <RealTimeScorePrediction team1={selectedTeam1} team2={selectedTeam2} />
-        <WinProbabilityCalculator team1={selectedTeam1} team2={selectedTeam2} />
-      </div>
-
-      {/* Feature Highlights */}
-      <motion.div
-        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-      >
-        <div className="flex items-center gap-3 mb-8">
-          <Star className="text-yellow-400" size={32} />
-          <h2 className="text-3xl font-bold text-white">Key Features Showcase</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              icon: Users,
-              title: "Interactive Team Selection",
-              description: "Dynamic team picker with logos, stats, and real-time form",
-              color: "from-blue-500 to-cyan-500"
-            },
-            {
-              icon: Target,
-              title: "Real-time Score Predictions",
-              description: "AI-powered score predictions with confidence intervals",
-              color: "from-green-500 to-emerald-500"
-            },
-            {
-              icon: BarChart3,
-              title: "Win Probability Calculations",
-              description: "Dynamic win probability based on team strength and form",
-              color: "from-purple-500 to-pink-500"
-            },
-            {
-              icon: TrendingUp,
-              title: "Player Statistics with 3D Visualization",
-              description: "Interactive 3D player cards with detailed performance metrics",
-              color: "from-yellow-500 to-orange-500"
-            },
-            {
-              icon: Trophy,
-              title: "Team Comparison Charts",
-              description: "Comprehensive team analysis with radar and bar charts",
-              color: "from-red-500 to-pink-500"
-            },
-            {
-              icon: Award,
-              title: "Match Analysis & Visualizations",
-              description: "Detailed match breakdowns with over-by-over analysis",
-              color: "from-indigo-500 to-purple-500"
-            }
-          ].map((feature, index) => (
+      {/* Content based on active view */}
+      <AnimatePresence mode="wait">
+        {activeView === 'overview' ? (
+          <motion.div
+            key="overview"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-8"
+          >
+            {/* Interactive Team Selection */}
             <motion.div
-              key={feature.title}
-              className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/30"
-              initial={{ opacity: 0, y: 20 }}
+              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 + index * 0.1 }}
-              whileHover={{ scale: 1.05, rotateY: 5 }}
+              transition={{ delay: 0.2 }}
             >
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4`}>
-                <feature.icon size={24} className="text-white" />
+              <div className="flex items-center gap-3 mb-8">
+                <Users className="text-blue-400" size={32} />
+                <h2 className="text-3xl font-bold text-white">Interactive Team Selection</h2>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-              <p className="text-white/70 text-sm">{feature.description}</p>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <InteractiveTeamSelector
+                  selectedTeam={selectedTeam1}
+                  onTeamSelect={setSelectedTeam1}
+                  label="Select Team 1"
+                />
+                <InteractiveTeamSelector
+                  selectedTeam={selectedTeam2}
+                  onTeamSelect={setSelectedTeam2}
+                  label="Select Team 2"
+                />
+              </div>
+
+              {/* Match Preview */}
+              <motion.div
+                className="mt-8 p-6 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl border border-blue-400/30"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="flex items-center justify-center gap-8">
+                  <div className="text-center">
+                    <img
+                      src={enhancedTeamData[selectedTeam1].logo}
+                      alt={selectedTeam1}
+                      className="w-20 h-20 rounded-full mx-auto mb-2 border-3 border-blue-400"
+                    />
+                    <h3 className="text-white font-bold">{selectedTeam1}</h3>
+                    <p className="text-blue-300 text-sm">{enhancedTeamData[selectedTeam1].captain}</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-white mb-2">VS</div>
+                    <div className="text-yellow-400 text-sm">IPL 2024</div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <img
+                      src={enhancedTeamData[selectedTeam2].logo}
+                      alt={selectedTeam2}
+                      className="w-20 h-20 rounded-full mx-auto mb-2 border-3 border-red-400"
+                    />
+                    <h3 className="text-white font-bold">{selectedTeam2}</h3>
+                    <p className="text-red-300 text-sm">{enhancedTeamData[selectedTeam2].captain}</p>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-          ))}
-        </div>
-      </motion.div>
+
+            {/* Real-time Predictions */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <RealTimeScorePrediction team1={selectedTeam1} team2={selectedTeam2} />
+              <WinProbabilityCalculator team1={selectedTeam1} team2={selectedTeam2} />
+            </div>
+
+            {/* Feature Highlights */}
+            <motion.div
+              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="flex items-center gap-3 mb-8">
+                <Star className="text-yellow-400" size={32} />
+                <h2 className="text-3xl font-bold text-white">Key Features Showcase</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: Users,
+                    title: "Interactive Team Selection",
+                    description: "Dynamic team picker with logos, stats, and real-time form",
+                    color: "from-blue-500 to-cyan-500"
+                  },
+                  {
+                    icon: Target,
+                    title: "Real-time Score Predictions",
+                    description: "AI-powered score predictions with confidence intervals",
+                    color: "from-green-500 to-emerald-500"
+                  },
+                  {
+                    icon: BarChart3,
+                    title: "Win Probability Calculations",
+                    description: "Dynamic win probability based on team strength and form",
+                    color: "from-purple-500 to-pink-500"
+                  },
+                  {
+                    icon: TrendingUp,
+                    title: "Player Statistics with 3D Visualization",
+                    description: "Interactive 3D player cards with detailed performance metrics",
+                    color: "from-yellow-500 to-orange-500"
+                  },
+                  {
+                    icon: Trophy,
+                    title: "Team Comparison Charts",
+                    description: "Comprehensive team analysis with radar and bar charts",
+                    color: "from-red-500 to-pink-500"
+                  },
+                  {
+                    icon: Award,
+                    title: "Live Field Visualization",
+                    description: "2D cricket field with real player positions and live stats",
+                    color: "from-indigo-500 to-purple-500"
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={feature.title}
+                    className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/30"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 + index * 0.1 }}
+                    whileHover={{ scale: 1.05, rotateY: 5 }}
+                  >
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4`}>
+                      <feature.icon size={24} className="text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                    <p className="text-white/70 text-sm">{feature.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="field"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.5 }}
+          >
+            <CricketFieldVisualization />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
