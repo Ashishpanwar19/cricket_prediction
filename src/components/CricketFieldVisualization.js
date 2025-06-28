@@ -575,7 +575,7 @@ export default function CricketFieldVisualization() {
             <p className="text-white/80 text-sm text-center">
               👆 Click on players to view detailed statistics • ⭐ Current batsmen and bowler are highlighted
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Live Scoreboard */}
