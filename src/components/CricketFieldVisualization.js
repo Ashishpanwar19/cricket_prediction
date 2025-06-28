@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Target, Users, BarChart3, Zap, Star, TrendingUp, Award, Clock, MapPin } from 'lucide-react';
+import { Trophy, Target, Users, BarChart3, Zap, Star, TrendingUp, Award, Clock, MapPin, RefreshCw } from 'lucide-react';
 
-// Authentic team data with official colors and player information
-const teamData = {
+// Complete team data for all IPL teams with player information
+const completeTeamData = {
   'CSK': {
     fullName: 'Chennai Super Kings',
     logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
@@ -89,19 +89,315 @@ const teamData = {
         stats: { runs: 3412, wickets: 69, strikeRate: 147.32 }
       }
     }
+  },
+  'RCB': {
+    fullName: 'Royal Challengers Bangalore',
+    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#EC1C24',
+      secondary: '#FFD700',
+      accent: '#000000'
+    },
+    captain: 'Virat Kohli',
+    homeGround: 'M. Chinnaswamy Stadium',
+    players: {
+      'Virat Kohli': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 25, y: 25 },
+        stats: { runs: 7263, average: 37.25, strikeRate: 131.02 }
+      },
+      'Glenn Maxwell': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 45, y: 55 },
+        stats: { runs: 2846, wickets: 38, strikeRate: 154.67 }
+      },
+      'Mohammed Siraj': {
+        role: 'Bowler',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 55, y: 15 },
+        stats: { wickets: 93, economy: 8.19, average: 27.89 }
+      },
+      'Dinesh Karthik': {
+        role: 'Wicket Keeper',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 80 },
+        stats: { runs: 4842, average: 26.32, strikeRate: 135.36 }
+      },
+      'Wanindu Hasaranga': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 75, y: 45 },
+        stats: { wickets: 26, economy: 7.65, strikeRate: 146.83 }
+      }
+    }
+  },
+  'KKR': {
+    fullName: 'Kolkata Knight Riders',
+    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#3A225D',
+      secondary: '#B3A123',
+      accent: '#FFFFFF'
+    },
+    captain: 'Shreyas Iyer',
+    homeGround: 'Eden Gardens',
+    players: {
+      'Shreyas Iyer': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 30, y: 30 },
+        stats: { runs: 3127, average: 31.27, strikeRate: 123.18 }
+      },
+      'Andre Russell': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 60, y: 65 },
+        stats: { runs: 2556, wickets: 73, strikeRate: 177.88 }
+      },
+      'Sunil Narine': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 40, y: 40 },
+        stats: { runs: 1025, wickets: 148, economy: 6.67 }
+      },
+      'Pat Cummins': {
+        role: 'Bowler',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 12 },
+        stats: { wickets: 32, economy: 7.86, average: 25.81 }
+      },
+      'Dinesh Karthik': {
+        role: 'Wicket Keeper',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 82 },
+        stats: { runs: 4842, average: 26.32, strikeRate: 135.36 }
+      }
+    }
+  },
+  'DC': {
+    fullName: 'Delhi Capitals',
+    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#17479E',
+      secondary: '#EF1B23',
+      accent: '#FFFFFF'
+    },
+    captain: 'Rishabh Pant',
+    homeGround: 'Arun Jaitley Stadium',
+    players: {
+      'Rishabh Pant': {
+        role: 'Wicket Keeper',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 80 },
+        stats: { runs: 3284, average: 34.52, strikeRate: 147.97 }
+      },
+      'Prithvi Shaw': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 15, y: 25 },
+        stats: { runs: 1892, average: 24.25, strikeRate: 147.65 }
+      },
+      'Axar Patel': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 35, y: 50 },
+        stats: { runs: 1058, wickets: 85, economy: 7.96 }
+      },
+      'Kagiso Rabada': {
+        role: 'Bowler',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 55, y: 18 },
+        stats: { wickets: 89, economy: 8.34, average: 20.82 }
+      },
+      'Mitchell Marsh': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 65, y: 55 },
+        stats: { runs: 624, wickets: 13, strikeRate: 136.84 }
+      }
+    }
+  },
+  'PBKS': {
+    fullName: 'Punjab Kings',
+    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#ED1A37',
+      secondary: '#FDDE00',
+      accent: '#FFFFFF'
+    },
+    captain: 'Shikhar Dhawan',
+    homeGround: 'PCA Stadium',
+    players: {
+      'Shikhar Dhawan': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 20, y: 22 },
+        stats: { runs: 6617, average: 34.84, strikeRate: 126.64 }
+      },
+      'Liam Livingstone': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 55, y: 60 },
+        stats: { runs: 778, wickets: 10, strikeRate: 182.24 }
+      },
+      'Kagiso Rabada': {
+        role: 'Bowler',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 48, y: 15 },
+        stats: { wickets: 89, economy: 8.34, average: 20.82 }
+      },
+      'Jitesh Sharma': {
+        role: 'Wicket Keeper',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 78 },
+        stats: { runs: 234, average: 19.50, strikeRate: 163.64 }
+      },
+      'Harpreet Brar': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 72, y: 42 },
+        stats: { runs: 67, wickets: 25, economy: 7.65 }
+      }
+    }
+  },
+  'RR': {
+    fullName: 'Rajasthan Royals',
+    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#254AA5',
+      secondary: '#E91C7A',
+      accent: '#FFFFFF'
+    },
+    captain: 'Sanju Samson',
+    homeGround: 'Sawai Mansingh Stadium',
+    players: {
+      'Sanju Samson': {
+        role: 'Wicket Keeper',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 75 },
+        stats: { runs: 3619, average: 28.27, strikeRate: 136.67 }
+      },
+      'Jos Buttler': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 18, y: 28 },
+        stats: { runs: 2598, average: 40.59, strikeRate: 149.05 }
+      },
+      'Yuzvendra Chahal': {
+        role: 'Bowler',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 52, y: 20 },
+        stats: { wickets: 187, economy: 7.59, average: 22.18 }
+      },
+      'Shimron Hetmyer': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 38, y: 45 },
+        stats: { runs: 1510, average: 27.45, strikeRate: 168.16 }
+      },
+      'Ravichandran Ashwin': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 68, y: 38 },
+        stats: { runs: 454, wickets: 72, economy: 6.79 }
+      }
+    }
+  },
+  'SRH': {
+    fullName: 'Sunrisers Hyderabad',
+    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#FF822A',
+      secondary: '#000000',
+      accent: '#FFFFFF'
+    },
+    captain: 'Aiden Markram',
+    homeGround: 'Rajiv Gandhi Stadium',
+    players: {
+      'Aiden Markram': {
+        role: 'Batsman',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 25, y: 35 },
+        stats: { runs: 1654, average: 31.80, strikeRate: 145.61 }
+      },
+      'Heinrich Klaasen': {
+        role: 'Wicket Keeper',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 72 },
+        stats: { runs: 1429, average: 51.04, strikeRate: 171.37 }
+      },
+      'Rashid Khan': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 45, y: 35 },
+        stats: { runs: 1069, wickets: 93, economy: 6.33 }
+      },
+      'Bhuvneshwar Kumar': {
+        role: 'Bowler',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 50, y: 8 },
+        stats: { wickets: 181, economy: 7.30, average: 23.21 }
+      },
+      'Abdul Samad': {
+        role: 'All Rounder',
+        image: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+        position: { x: 70, y: 50 },
+        stats: { runs: 573, wickets: 2, strikeRate: 147.56 }
+      }
+    }
   }
 };
 
-// Live match data simulation
-const liveMatchData = {
-  currentScore: { runs: 156, wickets: 4, overs: 16.3 },
-  target: 185,
-  required: { runs: 29, balls: 21 },
-  currentBatsmen: ['MS Dhoni', 'Ravindra Jadeja'],
-  currentBowler: 'Jasprit Bumrah',
-  momentum: 'CSK',
-  runRate: { current: 9.54, required: 8.29 }
-};
+// Generate dynamic live match data based on teams
+function generateLiveMatchData(battingTeam, bowlingTeam) {
+  const battingPlayers = Object.keys(completeTeamData[battingTeam].players);
+  const bowlingPlayers = Object.keys(completeTeamData[bowlingTeam].players);
+  
+  return {
+    currentScore: { 
+      runs: Math.floor(Math.random() * 80) + 120, 
+      wickets: Math.floor(Math.random() * 6) + 2, 
+      overs: (Math.floor(Math.random() * 40) + 120) / 10 
+    },
+    target: Math.floor(Math.random() * 50) + 180,
+    required: { 
+      runs: Math.floor(Math.random() * 40) + 20, 
+      balls: Math.floor(Math.random() * 30) + 15 
+    },
+    currentBatsmen: [
+      battingPlayers[Math.floor(Math.random() * battingPlayers.length)],
+      battingPlayers[Math.floor(Math.random() * battingPlayers.length)]
+    ],
+    currentBowler: bowlingPlayers[Math.floor(Math.random() * bowlingPlayers.length)],
+    momentum: Math.random() > 0.5 ? battingTeam : bowlingTeam,
+    runRate: { 
+      current: (Math.random() * 4 + 7).toFixed(2), 
+      required: (Math.random() * 3 + 8).toFixed(2) 
+    }
+  };
+}
+
+// Team Selector Component
+function TeamSelector({ teams, selectedTeam, onTeamSelect, label }) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-blue-200">{label}</label>
+      <select
+        value={selectedTeam}
+        onChange={(e) => onTeamSelect(e.target.value)}
+        className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
+      >
+        {teams.map(team => (
+          <option key={team} value={team} className="text-gray-900">
+            {completeTeamData[team].fullName}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
 
 // Player Position Component
 function PlayerPosition({ player, playerData, teamColors, isHighlighted, onClick, isCurrentPlayer }) {
@@ -176,9 +472,9 @@ function PlayerPosition({ player, playerData, teamColors, isHighlighted, onClick
 }
 
 // Cricket Field Component
-function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect }) {
-  const battingTeamData = teamData[battingTeam];
-  const bowlingTeamData = teamData[bowlingTeam];
+function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect, liveMatchData }) {
+  const battingTeamData = completeTeamData[battingTeam];
+  const bowlingTeamData = completeTeamData[bowlingTeam];
 
   return (
     <div className="relative w-full h-96 bg-gradient-to-br from-green-600 to-green-800 rounded-3xl overflow-hidden border-4 border-white/30">
@@ -253,7 +549,7 @@ function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect
 }
 
 // Live Scoreboard Component
-function LiveScoreboard({ battingTeam, bowlingTeam }) {
+function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -270,10 +566,10 @@ function LiveScoreboard({ battingTeam, bowlingTeam }) {
       {/* Match Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <img src={teamData[battingTeam].logo} alt={battingTeam} className="w-12 h-12 rounded-full" />
+          <img src={completeTeamData[battingTeam].logo} alt={battingTeam} className="w-12 h-12 rounded-full" />
           <div>
-            <h3 className="text-white font-bold text-lg">{teamData[battingTeam].fullName}</h3>
-            <p className="text-gray-400 text-sm">vs {teamData[bowlingTeam].fullName}</p>
+            <h3 className="text-white font-bold text-lg">{completeTeamData[battingTeam].fullName}</h3>
+            <p className="text-gray-400 text-sm">vs {completeTeamData[bowlingTeam].fullName}</p>
           </div>
         </div>
         
@@ -422,8 +718,8 @@ function PlayerStatsPanel({ selectedPlayer, teamColors }) {
 }
 
 // Match Momentum Indicator
-function MatchMomentum() {
-  const momentumPercentage = liveMatchData.momentum === 'CSK' ? 65 : 35;
+function MatchMomentum({ liveMatchData, battingTeam, bowlingTeam }) {
+  const momentumPercentage = liveMatchData.momentum === battingTeam ? 65 : 35;
   
   return (
     <motion.div
@@ -438,7 +734,7 @@ function MatchMomentum() {
       
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <span className="text-white font-medium">CSK</span>
+          <span className="text-white font-medium">{battingTeam}</span>
           <span className="text-yellow-400 font-bold">{momentumPercentage}%</span>
         </div>
         <div className="w-full bg-white/20 rounded-full h-3">
@@ -451,7 +747,7 @@ function MatchMomentum() {
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-white font-medium">MI</span>
+          <span className="text-white font-medium">{bowlingTeam}</span>
           <span className="text-blue-400 font-bold">{100 - momentumPercentage}%</span>
         </div>
         <div className="w-full bg-white/20 rounded-full h-3">
@@ -474,29 +770,51 @@ function MatchMomentum() {
 }
 
 // Main Cricket Field Visualization Component
-export default function CricketFieldVisualization() {
-  const [battingTeam, setBattingTeam] = useState('CSK');
-  const [bowlingTeam, setBowlingTeam] = useState('MI');
+export default function CricketFieldVisualization({ 
+  initialBattingTeam = 'CSK', 
+  initialBowlingTeam = 'MI',
+  teamData: externalTeamData
+}) {
+  const [battingTeam, setBattingTeam] = useState(initialBattingTeam);
+  const [bowlingTeam, setBowlingTeam] = useState(initialBowlingTeam);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [liveMatchData, setLiveMatchData] = useState(
+    generateLiveMatchData(initialBattingTeam, initialBowlingTeam)
+  );
+
+  const availableTeams = Object.keys(completeTeamData);
 
   const handlePlayerSelect = (playerName, playerData) => {
-    const team = Object.keys(teamData).find(t => 
-      teamData[t].players[playerName]
+    const team = Object.keys(completeTeamData).find(t => 
+      completeTeamData[t].players[playerName]
     );
     
     setSelectedPlayer({
       name: playerName,
       data: playerData,
-      team: teamData[team].fullName,
-      teamColors: teamData[team].colors
+      team: completeTeamData[team].fullName,
+      teamColors: completeTeamData[team].colors
     });
   };
 
   const swapTeams = () => {
-    setBattingTeam(bowlingTeam);
-    setBowlingTeam(battingTeam);
+    const newBattingTeam = bowlingTeam;
+    const newBowlingTeam = battingTeam;
+    setBattingTeam(newBattingTeam);
+    setBowlingTeam(newBowlingTeam);
+    setSelectedPlayer(null);
+    setLiveMatchData(generateLiveMatchData(newBattingTeam, newBowlingTeam));
+  };
+
+  const updateMatch = () => {
+    setLiveMatchData(generateLiveMatchData(battingTeam, bowlingTeam));
     setSelectedPlayer(null);
   };
+
+  // Update live data when teams change
+  useEffect(() => {
+    setLiveMatchData(generateLiveMatchData(battingTeam, bowlingTeam));
+  }, [battingTeam, bowlingTeam]);
 
   return (
     <div className="space-y-8">
@@ -510,24 +828,30 @@ export default function CricketFieldVisualization() {
           🏏 Live Cricket Match Visualization
         </h1>
         <p className="text-blue-200 text-lg">
-          Interactive 2D field with real player positions and live statistics
+          Interactive 2D field with real player positions and live statistics for all IPL teams
         </p>
       </motion.div>
 
-      {/* Team Logos and Match Info */}
+      {/* Team Selection and Controls */}
       <motion.div
         className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src={teamData[battingTeam].logo} alt={battingTeam} className="w-16 h-16 rounded-full" />
-            <div>
-              <h2 className="text-2xl font-bold text-white">{teamData[battingTeam].fullName}</h2>
-              <p className="text-blue-300">Captain: {teamData[battingTeam].captain}</p>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+          <TeamSelector
+            teams={availableTeams.filter(t => t !== bowlingTeam)}
+            selectedTeam={battingTeam}
+            onTeamSelect={setBattingTeam}
+            label="Batting Team"
+          />
+          
+          <TeamSelector
+            teams={availableTeams.filter(t => t !== battingTeam)}
+            selectedTeam={bowlingTeam}
+            onTeamSelect={setBowlingTeam}
+            label="Bowling Team"
+          />
           
           <motion.button
             onClick={swapTeams}
@@ -535,15 +859,45 @@ export default function CricketFieldVisualization() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
+            <RefreshCw size={20} className="inline mr-2" />
             Swap Innings
           </motion.button>
           
+          <motion.button
+            onClick={updateMatch}
+            className="px-6 py-3 bg-gradient-to-r from-green-500 to-blue-600 text-white font-bold rounded-xl"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Target size={20} className="inline mr-2" />
+            Update Match
+          </motion.button>
+        </div>
+
+        {/* Match Info */}
+        <div className="mt-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <img src={completeTeamData[battingTeam].logo} alt={battingTeam} className="w-16 h-16 rounded-full" />
+            <div>
+              <h2 className="text-2xl font-bold text-white">{completeTeamData[battingTeam].fullName}</h2>
+              <p className="text-blue-300">Captain: {completeTeamData[battingTeam].captain}</p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <div className="text-4xl font-bold text-white mb-2">VS</div>
+            <div className="text-yellow-400 text-sm">IPL 2024</div>
+            <div className="text-blue-300 text-xs mt-1">
+              {completeTeamData[battingTeam].homeGround}
+            </div>
+          </div>
+          
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <h2 className="text-2xl font-bold text-white">{teamData[bowlingTeam].fullName}</h2>
-              <p className="text-red-300">Captain: {teamData[bowlingTeam].captain}</p>
+              <h2 className="text-2xl font-bold text-white">{completeTeamData[bowlingTeam].fullName}</h2>
+              <p className="text-red-300">Captain: {completeTeamData[bowlingTeam].captain}</p>
             </div>
-            <img src={teamData[bowlingTeam].logo} alt={bowlingTeam} className="w-16 h-16 rounded-full" />
+            <img src={completeTeamData[bowlingTeam].logo} alt={bowlingTeam} className="w-16 h-16 rounded-full" />
           </div>
         </div>
       </motion.div>
@@ -562,6 +916,7 @@ export default function CricketFieldVisualization() {
               bowlingTeam={bowlingTeam}
               selectedPlayer={selectedPlayer}
               onPlayerSelect={handlePlayerSelect}
+              liveMatchData={liveMatchData}
             />
           </motion.div>
           
@@ -573,14 +928,18 @@ export default function CricketFieldVisualization() {
             transition={{ delay: 0.5 }}
           >
             <p className="text-white/80 text-sm text-center">
-              👆 Click on players to view detailed statistics • ⭐ Current batsmen and bowler are highlighted
+              👆 Click on players to view detailed statistics • ⭐ Current batsmen and bowler are highlighted • 🔄 Use controls to change teams
             </p>
           </motion.div>
         </div>
 
         {/* Live Scoreboard */}
         <div>
-          <LiveScoreboard battingTeam={battingTeam} bowlingTeam={bowlingTeam} />
+          <LiveScoreboard 
+            battingTeam={battingTeam} 
+            bowlingTeam={bowlingTeam} 
+            liveMatchData={liveMatchData}
+          />
         </div>
       </div>
 
@@ -588,9 +947,13 @@ export default function CricketFieldVisualization() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <PlayerStatsPanel 
           selectedPlayer={selectedPlayer} 
-          teamColors={selectedPlayer?.teamColors || teamData[battingTeam].colors}
+          teamColors={selectedPlayer?.teamColors || completeTeamData[battingTeam].colors}
         />
-        <MatchMomentum />
+        <MatchMomentum 
+          liveMatchData={liveMatchData}
+          battingTeam={battingTeam}
+          bowlingTeam={bowlingTeam}
+        />
       </div>
 
       {/* Current Match Status */}
@@ -622,7 +985,7 @@ export default function CricketFieldVisualization() {
           
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-400 mb-2">
-              {teamData[battingTeam].homeGround}
+              {completeTeamData[battingTeam].homeGround}
             </div>
             <div className="text-white/70">Venue</div>
           </div>
