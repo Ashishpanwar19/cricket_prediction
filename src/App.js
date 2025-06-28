@@ -4,12 +4,14 @@ import ScorePrediction from './components/ScorePrediction';
 import PlayerStats from './components/PlayerStats';
 import TeamComparison from './components/TeamComparison';
 import MatchVisualization from './components/MatchVisualization';
-import { Trophy, TrendingUp, Users, BarChart3 } from 'lucide-react';
+import EnhancedFeatures from './components/EnhancedFeatures';
+import { Trophy, TrendingUp, Users, BarChart3, Star, Zap } from 'lucide-react';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('prediction');
+  const [activeTab, setActiveTab] = useState('enhanced');
 
   const tabs = [
+    { id: 'enhanced', label: 'Enhanced Features', icon: Star },
     { id: 'prediction', label: 'Score Prediction', icon: TrendingUp },
     { id: 'players', label: 'Player Stats', icon: Users },
     { id: 'teams', label: 'Team Comparison', icon: Trophy },
@@ -50,12 +52,31 @@ function App() {
             >
               AI-Powered Cricket Analytics & Predictions
             </motion.p>
+            <motion.div
+              className="mt-4 flex items-center justify-center gap-4 text-sm text-blue-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="flex items-center gap-1">
+                <Zap size={16} className="text-yellow-400" />
+                <span>Real-time Predictions</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Star size={16} className="text-yellow-400" />
+                <span>3D Visualizations</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Trophy size={16} className="text-yellow-400" />
+                <span>Advanced Analytics</span>
+              </div>
+            </motion.div>
           </div>
         </motion.header>
 
         {/* Navigation Tabs */}
         <motion.nav 
-          className="max-w-4xl mx-auto px-6 mb-8"
+          className="max-w-6xl mx-auto px-6 mb-8"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -69,8 +90,8 @@ function App() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-white text-blue-900 shadow-lg'
-                      : 'text-white hover:bg-white/20'
+                      ? 'bg-white text-blue-900 shadow-lg transform scale-105'
+                      : 'text-white hover:bg-white/20 hover:scale-102'
                   }`}
                 >
                   <Icon size={20} />
@@ -90,6 +111,7 @@ function App() {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
           >
+            {activeTab === 'enhanced' && <EnhancedFeatures />}
             {activeTab === 'prediction' && <ScorePrediction />}
             {activeTab === 'players' && <PlayerStats />}
             {activeTab === 'teams' && <TeamComparison />}
@@ -99,7 +121,15 @@ function App() {
 
         {/* Footer */}
         <footer className="text-center py-8 text-blue-200">
-          <p>© {new Date().getFullYear()} CricketPredictPro - Powered by AI</p>
+          <div className="max-w-4xl mx-auto">
+            <p className="mb-2">© {new Date().getFullYear()} CricketPredictPro - Powered by AI</p>
+            <div className="flex items-center justify-center gap-6 text-sm">
+              <span>✨ Interactive Team Selection</span>
+              <span>🎯 Real-time Predictions</span>
+              <span>📊 Advanced Analytics</span>
+              <span>🏆 3D Visualizations</span>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
