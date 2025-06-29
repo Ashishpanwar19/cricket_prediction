@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Target, Users, BarChart3, Star, TrendingUp, Award, Play, Eye } from 'lucide-react';
 import CricketFieldVisualization from './CricketFieldVisualization';
 
-// Complete team data for all IPL teams
+// Enhanced team data with animated logos
 const enhancedTeamData = {
   'Mumbai Indians': {
     shortName: 'MI',
@@ -17,7 +17,8 @@ const enhancedTeamData = {
     currentForm: [1, 1, 0, 1, 1],
     keyPlayers: ['Rohit Sharma', 'Jasprit Bumrah', 'Hardik Pandya'],
     strengths: ['Power hitting', 'Death bowling', 'Experience'],
-    weaknesses: ['Middle order', 'Spin bowling']
+    weaknesses: ['Middle order', 'Spin bowling'],
+    animatedLogo: '🏏'
   },
   'Chennai Super Kings': {
     shortName: 'CSK',
@@ -31,7 +32,8 @@ const enhancedTeamData = {
     currentForm: [1, 0, 1, 1, 0],
     keyPlayers: ['MS Dhoni', 'Ravindra Jadeja', 'Ruturaj Gaikwad'],
     strengths: ['Experienced squad', 'Spin bowling', 'Finishing'],
-    weaknesses: ['Pace bowling', 'Youth factor']
+    weaknesses: ['Pace bowling', 'Youth factor'],
+    animatedLogo: '🦁'
   },
   'Royal Challengers Bangalore': {
     shortName: 'RCB',
@@ -45,7 +47,8 @@ const enhancedTeamData = {
     currentForm: [0, 1, 1, 0, 1],
     keyPlayers: ['Virat Kohli', 'Glenn Maxwell', 'Mohammed Siraj'],
     strengths: ['Top order batting', 'Aggressive approach'],
-    weaknesses: ['Bowling depth', 'Consistency']
+    weaknesses: ['Bowling depth', 'Consistency'],
+    animatedLogo: '👑'
   },
   'Kolkata Knight Riders': {
     shortName: 'KKR',
@@ -59,7 +62,8 @@ const enhancedTeamData = {
     currentForm: [1, 0, 0, 1, 1],
     keyPlayers: ['Shreyas Iyer', 'Andre Russell', 'Sunil Narine'],
     strengths: ['All-rounders', 'Spin bowling', 'Home advantage'],
-    weaknesses: ['Opening partnership', 'Death bowling']
+    weaknesses: ['Opening partnership', 'Death bowling'],
+    animatedLogo: '⚔️'
   },
   'Delhi Capitals': {
     shortName: 'DC',
@@ -73,7 +77,8 @@ const enhancedTeamData = {
     currentForm: [1, 1, 0, 1, 0],
     keyPlayers: ['Rishabh Pant', 'Prithvi Shaw', 'Kagiso Rabada'],
     strengths: ['Young talent', 'Pace bowling', 'Aggressive batting'],
-    weaknesses: ['Experience', 'Spin bowling']
+    weaknesses: ['Experience', 'Spin bowling'],
+    animatedLogo: '🏛️'
   },
   'Punjab Kings': {
     shortName: 'PBKS',
@@ -87,7 +92,8 @@ const enhancedTeamData = {
     currentForm: [0, 1, 0, 1, 1],
     keyPlayers: ['Shikhar Dhawan', 'KL Rahul', 'Mohammed Shami'],
     strengths: ['Opening partnership', 'Power hitting'],
-    weaknesses: ['Middle order', 'Death bowling']
+    weaknesses: ['Middle order', 'Death bowling'],
+    animatedLogo: '🦁'
   },
   'Rajasthan Royals': {
     shortName: 'RR',
@@ -101,7 +107,8 @@ const enhancedTeamData = {
     currentForm: [1, 0, 1, 0, 1],
     keyPlayers: ['Sanju Samson', 'Jos Buttler', 'Yuzvendra Chahal'],
     strengths: ['Explosive batting', 'Spin bowling'],
-    weaknesses: ['Consistency', 'Death bowling']
+    weaknesses: ['Consistency', 'Death bowling'],
+    animatedLogo: '👑'
   },
   'Sunrisers Hyderabad': {
     shortName: 'SRH',
@@ -115,8 +122,49 @@ const enhancedTeamData = {
     currentForm: [0, 0, 1, 1, 0],
     keyPlayers: ['Aiden Markram', 'Rashid Khan', 'Bhuvneshwar Kumar'],
     strengths: ['Bowling attack', 'Spin bowling'],
-    weaknesses: ['Batting depth', 'Power hitting']
+    weaknesses: ['Batting depth', 'Power hitting'],
+    animatedLogo: '☀️'
   }
+};
+
+// Animated Team Logo Component
+const AnimatedTeamLogo = ({ team, size = 'w-16 h-16' }) => {
+  const teamData = enhancedTeamData[team];
+  
+  return (
+    <motion.div
+      className={`${size} rounded-full relative overflow-hidden border-3 border-white/30 flex items-center justify-center text-4xl`}
+      style={{
+        background: `linear-gradient(135deg, ${teamData.colors[0]}, ${teamData.colors[1]})`
+      }}
+      whileHover={{ scale: 1.1, rotate: 10 }}
+      animate={{
+        boxShadow: [
+          `0 0 20px ${teamData.colors[0]}40`,
+          `0 0 30px ${teamData.colors[1]}60`,
+          `0 0 20px ${teamData.colors[0]}40`
+        ]
+      }}
+      transition={{
+        boxShadow: { duration: 2, repeat: Infinity },
+        hover: { type: "spring", stiffness: 300 }
+      }}
+    >
+      <motion.span
+        animate={{
+          scale: [1, 1.1, 1],
+          rotate: [0, 5, -5, 0]
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        {teamData.animatedLogo}
+      </motion.span>
+    </motion.div>
+  );
 };
 
 // Enhanced Interactive Team Selector Component
@@ -140,30 +188,30 @@ function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTea
         whileTap={{ scale: 0.98 }}
       >
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <img
-              src={enhancedTeamData[selectedTeam].logo}
-              alt={selectedTeam}
-              className="w-16 h-16 rounded-full object-cover border-3 border-blue-400"
-            />
-            <div className="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
-              <Trophy size={12} className="text-gray-900" />
-            </div>
-          </div>
+          <AnimatedTeamLogo team={selectedTeam} />
           <div className="flex-1">
             <h3 className="text-lg font-bold text-white">{selectedTeam}</h3>
             <p className="text-blue-300 text-sm">{enhancedTeamData[selectedTeam].captain}</p>
             <div className="flex items-center gap-1 mt-1">
               {enhancedTeamData[selectedTeam].currentForm.map((result, index) => (
-                <div
+                <motion.div
                   key={index}
                   className={`w-3 h-3 rounded-full ${result ? 'bg-green-400' : 'bg-red-400'}`}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
                 />
               ))}
             </div>
           </div>
           <div className="text-right">
-            <div className="text-yellow-400 font-bold">{enhancedTeamData[selectedTeam].titles}</div>
+            <motion.div 
+              className="text-yellow-400 font-bold text-2xl"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              {enhancedTeamData[selectedTeam].titles}
+            </motion.div>
             <div className="text-white/70 text-xs">Titles</div>
           </div>
         </div>
@@ -193,11 +241,7 @@ function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTea
                 whileHover={{ x: 5 }}
               >
                 <div className="flex items-center gap-3">
-                  <img
-                    src={teamData.logo}
-                    alt={teamName}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
+                  <AnimatedTeamLogo team={teamName} size="w-12 h-12" />
                   <div className="flex-1">
                     <h4 className="text-white font-medium">{teamName}</h4>
                     <p className="text-blue-300 text-sm">{teamData.homeGround}</p>
@@ -297,14 +341,20 @@ function RealTimeScorePrediction({ team1, team2 }) {
           <p className="text-white text-xl mb-4">Predicted Score for {team1}</p>
           
           <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="bg-white/10 rounded-xl p-4">
+            <motion.div 
+              className="bg-white/10 rounded-xl p-4"
+              whileHover={{ scale: 1.05 }}
+            >
               <div className="text-2xl font-bold text-blue-400">{confidence}%</div>
               <div className="text-white/70 text-sm">Confidence</div>
-            </div>
-            <div className="bg-white/10 rounded-xl p-4">
+            </motion.div>
+            <motion.div 
+              className="bg-white/10 rounded-xl p-4"
+              whileHover={{ scale: 1.05 }}
+            >
               <div className="text-2xl font-bold text-yellow-400">{prediction - 20}-{prediction + 20}</div>
               <div className="text-white/70 text-sm">Range</div>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : (
@@ -353,11 +403,7 @@ function WinProbabilityCalculator({ team1, team2 }) {
           <div>
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center gap-3">
-                <img
-                  src={enhancedTeamData[team1].logo}
-                  alt={team1}
-                  className="w-8 h-8 rounded-full"
-                />
+                <AnimatedTeamLogo team={team1} size="w-8 h-8" />
                 <span className="text-white font-medium">{team1}</span>
               </div>
               <span className="text-purple-400 font-bold text-xl">{probabilities.team1}%</span>
@@ -375,11 +421,7 @@ function WinProbabilityCalculator({ team1, team2 }) {
           <div>
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center gap-3">
-                <img
-                  src={enhancedTeamData[team2].logo}
-                  alt={team2}
-                  className="w-8 h-8 rounded-full"
-                />
+                <AnimatedTeamLogo team={team2} size="w-8 h-8" />
                 <span className="text-white font-medium">{team2}</span>
               </div>
               <span className="text-pink-400 font-bold text-xl">{probabilities.team2}%</span>
@@ -447,10 +489,10 @@ export default function EnhancedFeatures() {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-4xl font-bold text-white mb-4">
-          🏏 Enhanced Cricket Analytics
+          🏏 Enhanced Cricket Analytics with Animated Features
         </h1>
         <p className="text-blue-200 text-lg">
-          Experience next-generation cricket prediction with interactive features
+          Experience next-generation cricket prediction with beautiful animated team logos and player avatars
         </p>
       </motion.div>
 
@@ -505,7 +547,7 @@ export default function EnhancedFeatures() {
             >
               <div className="flex items-center gap-3 mb-8">
                 <Users className="text-blue-400" size={32} />
-                <h2 className="text-3xl font-bold text-white">Interactive Team Selection</h2>
+                <h2 className="text-3xl font-bold text-white">Interactive Team Selection with Animated Logos</h2>
                 <div className="ml-auto">
                   <motion.button
                     onClick={startLiveVisualization}
@@ -543,18 +585,20 @@ export default function EnhancedFeatures() {
               >
                 <div className="flex items-center justify-center gap-8">
                   <div className="text-center">
-                    <img
-                      src={enhancedTeamData[selectedTeam1].logo}
-                      alt={selectedTeam1}
-                      className="w-20 h-20 rounded-full mx-auto mb-2 border-3 border-blue-400"
-                    />
-                    <h3 className="text-white font-bold">{selectedTeam1}</h3>
+                    <AnimatedTeamLogo team={selectedTeam1} size="w-20 h-20" />
+                    <h3 className="text-white font-bold mt-2">{selectedTeam1}</h3>
                     <p className="text-blue-300 text-sm">{enhancedTeamData[selectedTeam1].captain}</p>
                     <div className="text-xs text-green-400 mt-1">Batting First</div>
                   </div>
                   
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-white mb-2">VS</div>
+                    <motion.div 
+                      className="text-4xl font-bold text-white mb-2"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      VS
+                    </motion.div>
                     <div className="text-yellow-400 text-sm">IPL 2024</div>
                     <div className="text-blue-300 text-xs mt-1">
                       {enhancedTeamData[selectedTeam1].homeGround}
@@ -562,12 +606,8 @@ export default function EnhancedFeatures() {
                   </div>
                   
                   <div className="text-center">
-                    <img
-                      src={enhancedTeamData[selectedTeam2].logo}
-                      alt={selectedTeam2}
-                      className="w-20 h-20 rounded-full mx-auto mb-2 border-3 border-red-400"
-                    />
-                    <h3 className="text-white font-bold">{selectedTeam2}</h3>
+                    <AnimatedTeamLogo team={selectedTeam2} size="w-20 h-20" />
+                    <h3 className="text-white font-bold mt-2">{selectedTeam2}</h3>
                     <p className="text-red-300 text-sm">{enhancedTeamData[selectedTeam2].captain}</p>
                     <div className="text-xs text-red-400 mt-1">Bowling First</div>
                   </div>
@@ -603,11 +643,7 @@ export default function EnhancedFeatures() {
                     transition={{ delay: 0.7 + index * 0.1 }}
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <img
-                        src={enhancedTeamData[team].logo}
-                        alt={team}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-blue-400"
-                      />
+                      <AnimatedTeamLogo team={team} />
                       <div>
                         <h3 className="text-xl font-bold text-white">{team}</h3>
                         <p className="text-blue-300">{enhancedTeamData[team].shortName}</p>
@@ -615,16 +651,22 @@ export default function EnhancedFeatures() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="bg-white/10 rounded-xl p-3 text-center">
+                      <motion.div 
+                        className="bg-white/10 rounded-xl p-3 text-center"
+                        whileHover={{ scale: 1.05 }}
+                      >
                         <div className="text-2xl font-bold text-yellow-400">{enhancedTeamData[team].titles}</div>
                         <div className="text-white/70 text-sm">Titles</div>
-                      </div>
-                      <div className="bg-white/10 rounded-xl p-3 text-center">
+                      </motion.div>
+                      <motion.div 
+                        className="bg-white/10 rounded-xl p-3 text-center"
+                        whileHover={{ scale: 1.05 }}
+                      >
                         <div className="text-2xl font-bold text-green-400">
                           {enhancedTeamData[team].currentForm.reduce((a, b) => a + b, 0)}/5
                         </div>
                         <div className="text-white/70 text-sm">Recent Form</div>
-                      </div>
+                      </motion.div>
                     </div>
 
                     <div className="space-y-3">
@@ -632,12 +674,15 @@ export default function EnhancedFeatures() {
                         <div className="text-white/70 text-sm mb-1">Strengths</div>
                         <div className="flex flex-wrap gap-1">
                           {enhancedTeamData[team].strengths.map((strength, idx) => (
-                            <span
+                            <motion.span
                               key={idx}
                               className="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full"
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.8 + idx * 0.1 }}
                             >
                               {strength}
-                            </span>
+                            </motion.span>
                           ))}
                         </div>
                       </div>
@@ -645,85 +690,19 @@ export default function EnhancedFeatures() {
                         <div className="text-white/70 text-sm mb-1">Weaknesses</div>
                         <div className="flex flex-wrap gap-1">
                           {enhancedTeamData[team].weaknesses.map((weakness, idx) => (
-                            <span
+                            <motion.span
                               key={idx}
                               className="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded-full"
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.9 + idx * 0.1 }}
                             >
                               {weakness}
-                            </span>
+                            </motion.span>
                           ))}
                         </div>
                       </div>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Feature Highlights */}
-            <motion.div
-              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <div className="flex items-center gap-3 mb-8">
-                <Star className="text-yellow-400" size={32} />
-                <h2 className="text-3xl font-bold text-white">Key Features Showcase</h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  {
-                    icon: Users,
-                    title: "All 8 IPL Teams",
-                    description: "Complete database with all current IPL teams and their detailed statistics",
-                    color: "from-blue-500 to-cyan-500"
-                  },
-                  {
-                    icon: Target,
-                    title: "Real-time Predictions",
-                    description: "AI-powered score predictions for any team combination with confidence intervals",
-                    color: "from-green-500 to-emerald-500"
-                  },
-                  {
-                    icon: Eye,
-                    title: "Live Field Visualization",
-                    description: "2D cricket field with real player positions for your selected teams",
-                    color: "from-purple-500 to-pink-500"
-                  },
-                  {
-                    icon: BarChart3,
-                    title: "Win Probability",
-                    description: "Dynamic win probability calculations based on team strength and current form",
-                    color: "from-yellow-500 to-orange-500"
-                  },
-                  {
-                    icon: TrendingUp,
-                    title: "Team Analytics",
-                    description: "Comprehensive team analysis with strengths, weaknesses, and head-to-head stats",
-                    color: "from-red-500 to-pink-500"
-                  },
-                  {
-                    icon: Award,
-                    title: "Integrated Experience",
-                    description: "Seamless flow from prediction to live visualization for complete match analysis",
-                    color: "from-indigo-500 to-purple-500"
-                  }
-                ].map((feature, index) => (
-                  <motion.div
-                    key={feature.title}
-                    className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/30"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9 + index * 0.1 }}
-                    whileHover={{ scale: 1.05, rotateY: 5 }}
-                  >
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4`}>
-                      <feature.icon size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                    <p className="text-white/70 text-sm">{feature.description}</p>
                   </motion.div>
                 ))}
               </div>
