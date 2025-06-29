@@ -1,0 +1,32 @@
+team1,team2,venue,date,toss_winner,toss_decision,team1_score,team2_score,team1_wickets,team2_wickets,winner,result,pitch_type,weather,man_of_match,team1_powerplay,team2_powerplay,team1_death_overs,team2_death_overs
+Mumbai Indians,Chennai Super Kings,Wankhede Stadium,2024-04-10,Mumbai Indians,bat,185,170,5,7,Mumbai Indians,by 15 runs,flat,sunny,Rohit Sharma,65,48,45,38
+Royal Challengers Bangalore,Kolkata Knight Riders,M. Chinnaswamy Stadium,2024-04-12,Kolkata Knight Riders,field,165,168,8,6,Kolkata Knight Riders,by 2 wickets,flat,overcast,Andre Russell,52,58,35,42
+Delhi Capitals,Punjab Kings,Arun Jaitley Stadium,2024-04-14,Delhi Capitals,bat,210,185,4,10,Delhi Capitals,by 25 runs,high-scoring,clear,Rishabh Pant,78,62,58,48
+Rajasthan Royals,Sunrisers Hyderabad,Sawai Mansingh Stadium,2024-04-15,Rajasthan Royals,bat,175,172,6,9,Rajasthan Royals,by 3 runs,spin-friendly,dry,Jos Buttler,55,45,38,45
+Chennai Super Kings,Gujarat Titans,MA Chidambaram Stadium,2024-04-17,Chennai Super Kings,bat,155,158,9,5,Gujarat Titans,by 5 wickets,slow,humid,Hardik Pandya,42,48,28,35
+Kolkata Knight Riders,Lucknow Super Giants,Eden Gardens,2024-04-19,Kolkata Knight Riders,bat,182,178,7,8,Kolkata Knight Riders,by 4 runs,balanced,cloudy,Sunil Narine,58,52,42,48
+Punjab Kings,Mumbai Indians,PCA Stadium,2024-04-21,Punjab Kings,field,190,193,5,4,Mumbai Indians,by 6 wickets,flat,sunny,Jasprit Bumrah,68,72,48,52
+Sunrisers Hyderabad,Royal Challengers Bangalore,Rajiv Gandhi Stadium,2024-04-23,Sunrisers Hyderabad,bat,168,165,8,9,Sunrisers Hyderabad,by 3 runs,pace-friendly,night,Bhuvneshwar Kumar,45,42,38,35
+Gujarat Titans,Rajasthan Royals,Narendra Modi Stadium,2024-04-25,Gujarat Titans,field,205,208,3,6,Rajasthan Royals,by 4 wickets,high-scoring,clear,Sanju Samson,78,82,65,68
+Lucknow Super Giants,Delhi Capitals,BRSABV Stadium,2024-04-27,Lucknow Super Giants,bat,178,175,6,8,Lucknow Super Giants,by 3 runs,balanced,humid,KL Rahul,62,58,45,42
+Mumbai Indians,Royal Challengers Bangalore,Wankhede Stadium,2024-04-29,Mumbai Indians,bat,195,190,4,7,Mumbai Indians,by 5 runs,flat,night,Virat Kohli,72,68,52,55
+Chennai Super Kings,Kolkata Knight Riders,MA Chidambaram Stadium,2024-05-01,Chennai Super Kings,field,185,182,7,6,Chennai Super Kings,by 3 wickets,spin-friendly,dry,MS Dhoni,55,58,48,45
+Punjab Kings,Rajasthan Royals,PCA Stadium,2024-05-03,Punjab Kings,bat,172,170,8,9,Punjab Kings,by 2 runs,slow,overcast,Shikhar Dhawan,48,45,38,42
+Delhi Capitals,Sunrisers Hyderabad,Arun Jaitley Stadium,2024-05-05,Delhi Capitals,bat,198,195,5,8,Delhi Capitals,by 3 runs,high-scoring,clear,Prithvi Shaw,75,68,58,62
+Gujarat Titans,Lucknow Super Giants,Narendra Modi Stadium,2024-05-07,Gujarat Titans,bat,188,184,6,7,Gujarat Titans,by 4 runs,balanced,humid,Rashid Khan,65,62,48,45
+Kolkata Knight Riders,Mumbai Indians,Eden Gardens,2024-05-09,Kolkata Knight Riders,field,175,178,9,5,Mumbai Indians,by 5 wickets,spin-friendly,cloudy,Hardik Pandya,52,65,42,48
+Royal Challengers Bangalore,Chennai Super Kings,M. Chinnaswamy Stadium,2024-05-11,Royal Challengers Bangalore,bat,165,168,8,6,Chennai Super Kings,by 3 wickets,pace-friendly,night,Ravindra Jadeja,58,55,35,42
+Rajasthan Royals,Delhi Capitals,Sawai Mansingh Stadium,2024-05-13,Rajasthan Royals,field,182,185,7,4,Delhi Capitals,by 3 runs,balanced,dry,Axar Patel,62,68,45,52
+Sunrisers Hyderabad,Punjab Kings,Rajiv Gandhi Stadium,2024-05-15,Sunrisers Hyderabad,bat,195,190,4,8,Sunrisers Hyderabad,by 5 runs,flat,sunny,Aiden Markram,72,65,55,48
+Lucknow Super Giants,Gujarat Titans,BRSABV Stadium,2024-05-17,Lucknow Super Giants,bat,170,172,8,5,Gujarat Titans,by 5 wickets,slow,humid,Shubman Gill,48,58,38,45
+Mumbai Indians,Delhi Capitals,Wankhede Stadium,2024-05-19,Mumbai Indians,field,203,198,6,7,Mumbai Indians,by 5 runs,flat,clear,Suryakumar Yadav,68,72,62,58
+Chennai Super Kings,Punjab Kings,MA Chidambaram Stadium,2024-05-21,Chennai Super Kings,bat,178,175,7,8,Chennai Super Kings,by 3 runs,spin-friendly,humid,Ruturaj Gaikwad,55,52,45,48
+Royal Challengers Bangalore,Sunrisers Hyderabad,M. Chinnaswamy Stadium,2024-05-23,Royal Challengers Bangalore,field,188,192,6,5,Sunrisers Hyderabad,by 4 runs,high-scoring,night,Abdul Samad,65,72,52,58
+Kolkata Knight Riders,Rajasthan Royals,Eden Gardens,2024-05-25,Kolkata Knight Riders,bat,165,162,9,8,Kolkata Knight Riders,by 3 runs,spin-friendly,overcast,Shreyas Iyer,48,45,35,38
+Gujarat Titans,Mumbai Indians,Narendra Modi Stadium,2024-05-27,Gujarat Titans,field,201,205,5,4,Mumbai Indians,by 4 runs,high-scoring,clear,Rohit Sharma,75,78,62,68
+Lucknow Super Giants,Chennai Super Kings,BRSABV Stadium,2024-05-29,Lucknow Super Giants,field,172,175,8,6,Chennai Super Kings,by 3 runs,balanced,dry,Deepak Chahar,52,58,42,45
+Delhi Capitals,Royal Challengers Bangalore,Arun Jaitley Stadium,2024-05-31,Delhi Capitals,bat,195,188,6,9,Delhi Capitals,by 7 runs,flat,sunny,Rishabh Pant,68,62,55,48
+Punjab Kings,Kolkata Knight Riders,PCA Stadium,2024-06-02,Punjab Kings,field,158,162,10,7,Kolkata Knight Riders,by 4 runs,slow,humid,Varun Chakravarthy,42,48,32,38
+Rajasthan Royals,Sunrisers Hyderabad,Sawai Mansingh Stadium,2024-06-04,Rajasthan Royals,bat,183,178,7,9,Rajasthan Royals,by 5 runs,balanced,clear,Yashasvi Jaiswal,62,55,48,42
+Mumbai Indians,Lucknow Super Giants,Wankhede Stadium,2024-06-06,Mumbai Indians,bat,208,195,4,8,Mumbai Indians,by 13 runs,flat,night,Ishan Kishan,82,68,65,58
+Chennai Super Kings,Gujarat Titans,MA Chidambaram Stadium,2024-06-08,Chennai Super Kings,field,168,172,8,6,Gujarat Titans,by 4 runs,spin-friendly,humid,Mohammed Shami,52,58,42,45

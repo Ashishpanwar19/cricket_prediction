@@ -5,7 +5,9 @@ import PlayerStats from './components/PlayerStats';
 import TeamComparison from './components/TeamComparison';
 import MatchVisualization from './components/MatchVisualization';
 import EnhancedFeatures from './components/EnhancedFeatures';
-import { Trophy, TrendingUp, Users, BarChart3, Star, Zap } from 'lucide-react';
+import EnhancedDatabase from './components/EnhancedDatabase';
+import FlutterIntegration from './components/FlutterIntegration';
+import { Trophy, TrendingUp, Users, BarChart3, Star, Zap, Database, Smartphone } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab] = useState('enhanced');
@@ -15,7 +17,9 @@ function App() {
     { id: 'prediction', label: 'Score Prediction', icon: TrendingUp },
     { id: 'players', label: 'Player Stats', icon: Users },
     { id: 'teams', label: 'Team Comparison', icon: Trophy },
-    { id: 'visualization', label: 'Match Analysis', icon: BarChart3 }
+    { id: 'visualization', label: 'Match Analysis', icon: BarChart3 },
+    { id: 'database', label: 'Database', icon: Database },
+    { id: 'flutter', label: 'Mobile App', icon: Smartphone }
   ];
 
   return (
@@ -50,7 +54,7 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              AI-Powered Cricket Analytics & Predictions
+              AI-Powered Cricket Analytics & Predictions with Database Integration
             </motion.p>
             <motion.div
               className="mt-4 flex items-center justify-center gap-4 text-sm text-blue-300"
@@ -63,8 +67,12 @@ function App() {
                 <span>Real-time Predictions</span>
               </div>
               <div className="flex items-center gap-1">
-                <Star size={16} className="text-yellow-400" />
-                <span>3D Visualizations</span>
+                <Database size={16} className="text-green-400" />
+                <span>SQLite Database</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Smartphone size={16} className="text-blue-400" />
+                <span>Flutter Mobile App</span>
               </div>
               <div className="flex items-center gap-1">
                 <Trophy size={16} className="text-yellow-400" />
@@ -76,7 +84,7 @@ function App() {
 
         {/* Navigation Tabs */}
         <motion.nav 
-          className="max-w-6xl mx-auto px-6 mb-8"
+          className="max-w-7xl mx-auto px-6 mb-8"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -116,18 +124,21 @@ function App() {
             {activeTab === 'players' && <PlayerStats />}
             {activeTab === 'teams' && <TeamComparison />}
             {activeTab === 'visualization' && <MatchVisualization />}
+            {activeTab === 'database' && <EnhancedDatabase />}
+            {activeTab === 'flutter' && <FlutterIntegration />}
           </motion.div>
         </main>
 
         {/* Footer */}
         <footer className="text-center py-8 text-blue-200">
           <div className="max-w-4xl mx-auto">
-            <p className="mb-2">© {new Date().getFullYear()} CricketPredictPro - Powered by AI</p>
+            <p className="mb-2">© {new Date().getFullYear()} CricketPredictPro - Enhanced with Database & Mobile Integration</p>
             <div className="flex items-center justify-center gap-6 text-sm">
               <span>✨ Interactive Team Selection</span>
               <span>🎯 Real-time Predictions</span>
-              <span>📊 Advanced Analytics</span>
-              <span>🏆 3D Visualizations</span>
+              <span>📊 SQLite Database</span>
+              <span>📱 Flutter Mobile App</span>
+              <span>🏆 Advanced Analytics</span>
             </div>
           </div>
         </footer>

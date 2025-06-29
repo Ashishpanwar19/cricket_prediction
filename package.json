@@ -1,6 +1,6 @@
 {
   "name": "cricket-prediction-frontend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
@@ -11,14 +11,25 @@
     "framer-motion": "^10.16.4",
     "recharts": "^2.8.0",
     "react-spring": "^9.7.3",
-    "lucide-react": "^0.292.0"
+    "lucide-react": "^0.292.0",
+    "sqlite3": "^5.1.6",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^3.0.2",
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^2.30.0"
   },
   "scripts": {
     "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node server/index.js",
+    "dev-full": "concurrently \"npm run server\" \"npm run dev\""
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
