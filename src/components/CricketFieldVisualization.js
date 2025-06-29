@@ -91,6 +91,94 @@ const completeTeamData = {
         stats: { runs: 3412, wickets: 69, strikeRate: 147.32 }
       }
     }
+  },
+  'RCB': {
+    fullName: 'Royal Challengers Bangalore',
+    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#EC1C24',
+      secondary: '#FFD700',
+      accent: '#000000'
+    },
+    captain: 'Virat Kohli',
+    homeGround: 'M. Chinnaswamy Stadium',
+    animatedLogo: '👑',
+    players: {
+      'Virat Kohli': {
+        role: 'Batsman',
+        avatar: '🏏',
+        position: { x: 20, y: 20 },
+        stats: { runs: 7263, average: 37.25, strikeRate: 131.97 }
+      },
+      'Glenn Maxwell': {
+        role: 'All Rounder',
+        avatar: '⭐',
+        position: { x: 40, y: 50 },
+        stats: { runs: 2771, wickets: 32, strikeRate: 154.67 }
+      },
+      'Mohammed Siraj': {
+        role: 'Bowler',
+        avatar: '⚡',
+        position: { x: 50, y: 10 },
+        stats: { wickets: 93, economy: 8.32, average: 26.77 }
+      },
+      'Faf du Plessis': {
+        role: 'Batsman',
+        avatar: '🏏',
+        position: { x: 30, y: 30 },
+        stats: { runs: 2935, average: 34.94, strikeRate: 131.09 }
+      },
+      'Dinesh Karthik': {
+        role: 'Wicket Keeper',
+        avatar: '🥅',
+        position: { x: 50, y: 85 },
+        stats: { runs: 4842, average: 26.32, strikeRate: 135.36 }
+      }
+    }
+  },
+  'KKR': {
+    fullName: 'Kolkata Knight Riders',
+    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+    colors: {
+      primary: '#3A225D',
+      secondary: '#B3A123',
+      accent: '#FFFFFF'
+    },
+    captain: 'Shreyas Iyer',
+    homeGround: 'Eden Gardens',
+    animatedLogo: '⚔️',
+    players: {
+      'Shreyas Iyer': {
+        role: 'Batsman',
+        avatar: '🏏',
+        position: { x: 20, y: 20 },
+        stats: { runs: 3127, average: 31.27, strikeRate: 123.89 }
+      },
+      'Andre Russell': {
+        role: 'All Rounder',
+        avatar: '⭐',
+        position: { x: 40, y: 50 },
+        stats: { runs: 2556, wickets: 73, strikeRate: 179.33 }
+      },
+      'Sunil Narine': {
+        role: 'All Rounder',
+        avatar: '⭐',
+        position: { x: 30, y: 60 },
+        stats: { runs: 1025, wickets: 180, strikeRate: 168.3 }
+      },
+      'Varun Chakravarthy': {
+        role: 'Bowler',
+        avatar: '⚡',
+        position: { x: 50, y: 10 },
+        stats: { wickets: 65, economy: 7.05, average: 23.2 }
+      },
+      'Dinesh Karthik': {
+        role: 'Wicket Keeper',
+        avatar: '🥅',
+        position: { x: 50, y: 85 },
+        stats: { runs: 4842, average: 26.32, strikeRate: 135.36 }
+      }
+    }
   }
 };
 
@@ -202,8 +290,8 @@ const AnimatedPlayerAvatar = ({ player, playerData, isActive, onClick }) => {
 
 // Generate dynamic live match data based on teams
 function generateLiveMatchData(battingTeam, bowlingTeam) {
-  const battingPlayers = Object.keys(completeTeamData[battingTeam].players);
-  const bowlingPlayers = Object.keys(completeTeamData[bowlingTeam].players);
+  const battingPlayers = Object.keys(completeTeamData[battingTeam]?.players || {});
+  const bowlingPlayers = Object.keys(completeTeamData[bowlingTeam]?.players || {});
   
   return {
     currentScore: { 
@@ -217,10 +305,10 @@ function generateLiveMatchData(battingTeam, bowlingTeam) {
       balls: Math.floor(Math.random() * 30) + 15 
     },
     currentBatsmen: [
-      battingPlayers[Math.floor(Math.random() * battingPlayers.length)],
-      battingPlayers[Math.floor(Math.random() * battingPlayers.length)]
+      battingPlayers[Math.floor(Math.random() * battingPlayers.length)] || 'Player 1',
+      battingPlayers[Math.floor(Math.random() * battingPlayers.length)] || 'Player 2'
     ],
-    currentBowler: bowlingPlayers[Math.floor(Math.random() * bowlingPlayers.length)],
+    currentBowler: bowlingPlayers[Math.floor(Math.random() * bowlingPlayers.length)] || 'Bowler 1',
     momentum: Math.random() > 0.5 ? battingTeam : bowlingTeam,
     runRate: { 
       current: (Math.random() * 4 + 7).toFixed(2), 
@@ -241,7 +329,7 @@ function TeamSelector({ teams, selectedTeam, onTeamSelect, label }) {
       >
         {teams.map(team => (
           <option key={team} value={team} className="text-gray-900">
-            {completeTeamData[team].fullName}
+            {completeTeamData[team]?.fullName || team}
           </option>
         ))}
       </select>
@@ -253,6 +341,14 @@ function TeamSelector({ teams, selectedTeam, onTeamSelect, label }) {
 function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect, liveMatchData }) {
   const battingTeamData = completeTeamData[battingTeam];
   const bowlingTeamData = completeTeamData[bowlingTeam];
+
+  if (!battingTeamData || !bowlingTeamData) {
+    return (
+      <div className="relative w-full h-96 bg-gradient-to-br from-green-600 to-green-800 rounded-3xl overflow-hidden border-4 border-white/30 flex items-center justify-center">
+        <p className="text-white text-xl">Loading field...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-96 bg-gradient-to-br from-green-600 to-green-800 rounded-3xl overflow-hidden border-4 border-white/30">
@@ -356,6 +452,17 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
     return () => clearInterval(timer);
   }, []);
 
+  const battingTeamData = completeTeamData[battingTeam];
+  const bowlingTeamData = completeTeamData[bowlingTeam];
+
+  if (!battingTeamData || !bowlingTeamData) {
+    return (
+      <div className="bg-gradient-to-r from-gray-900 to-black rounded-3xl p-6 border-4 border-yellow-400">
+        <p className="text-white text-center">Loading scoreboard...</p>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className="bg-gradient-to-r from-gray-900 to-black rounded-3xl p-6 border-4 border-yellow-400"
@@ -369,11 +476,11 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            {completeTeamData[battingTeam].animatedLogo}
+            {battingTeamData.animatedLogo}
           </motion.div>
           <div>
-            <h3 className="text-white font-bold text-lg">{completeTeamData[battingTeam].fullName}</h3>
-            <p className="text-gray-400 text-sm">vs {completeTeamData[bowlingTeam].fullName}</p>
+            <h3 className="text-white font-bold text-lg">{battingTeamData.fullName}</h3>
+            <p className="text-gray-400 text-sm">vs {bowlingTeamData.fullName}</p>
           </div>
         </div>
         
@@ -484,15 +591,17 @@ export default function CricketFieldVisualization({
 
   const handlePlayerSelect = (playerName, playerData) => {
     const team = Object.keys(completeTeamData).find(t => 
-      completeTeamData[t].players[playerName]
+      completeTeamData[t].players && completeTeamData[t].players[playerName]
     );
     
-    setSelectedPlayer({
-      name: playerName,
-      data: playerData,
-      team: completeTeamData[team].fullName,
-      teamColors: completeTeamData[team].colors
-    });
+    if (team) {
+      setSelectedPlayer({
+        name: playerName,
+        data: playerData,
+        team: completeTeamData[team].fullName,
+        teamColors: completeTeamData[team].colors
+      });
+    }
   };
 
   const swapTeams = () => {
