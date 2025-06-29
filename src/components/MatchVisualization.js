@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area, BarChart, Bar } from 'recharts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area, BarChart, Bar } from 'recharts';
 import { BarChart3, TrendingUp, PieChart as PieChartIcon, Activity, Award, Target, Crown } from 'lucide-react';
 
 export default function MatchVisualization() {
@@ -84,8 +84,6 @@ export default function MatchVisualization() {
     { name: 'Hardik Pandya', runs: 28, balls: 16, sr: 175.00, contribution: 15 },
     { name: 'Kieron Pollard', runs: 12, balls: 9, sr: 133.33, contribution: 7 }
   ];
-
-  const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];
 
   return (
     <div className="space-y-8">

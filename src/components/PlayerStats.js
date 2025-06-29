@@ -1,9 +1,8 @@
 import React, { useState, useRef, Suspense } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, Box, Sphere, OrbitControls, Html } from '@react-three/drei';
-import { TextureLoader } from 'three';
 import { motion } from 'framer-motion';
-import { Trophy, Target, Zap, Award, Star, TrendingUp } from 'lucide-react';
+import { Trophy, Target, Award, Star, TrendingUp } from 'lucide-react';
 
 // 3D Player Card Component with Image Texture
 function Player3DCard({ player, position, isSelected, onClick }) {
@@ -281,7 +280,7 @@ export default function PlayerStats() {
 
   const categories = [
     { id: 'batsmen', label: 'Top Batsmen', icon: Target, color: 'from-yellow-500 to-orange-500' },
-    { id: 'bowlers', label: 'Top Bowlers', icon: Zap, color: 'from-red-500 to-pink-500' },
+    { id: 'bowlers', label: 'Top Bowlers', icon: Trophy, color: 'from-red-500 to-pink-500' },
     { id: 'allRounders', label: 'All-Rounders', icon: Award, color: 'from-purple-500 to-indigo-500' }
   ];
 

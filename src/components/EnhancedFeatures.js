@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Target, Users, BarChart3, Zap, Star, TrendingUp, Award, Play, Eye } from 'lucide-react';
+import { Trophy, Target, Users, BarChart3, Star, TrendingUp, Award, Play, Eye } from 'lucide-react';
 import CricketFieldVisualization from './CricketFieldVisualization';
 
 // Complete team data for all IPL teams
