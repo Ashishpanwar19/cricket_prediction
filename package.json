@@ -23,13 +23,13 @@
     "date-fns": "^2.30.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "concurrently \"npm run server\" \"react-scripts start\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node server/index.js",
-    "dev-full": "concurrently \"npm run server\" \"npm run dev\""
+    "dev-full": "concurrently \"npm run server\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": [
@@ -51,5 +51,6 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
