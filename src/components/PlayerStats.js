@@ -1,157 +1,6 @@
-import React, { useState, useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Box, Sphere, OrbitControls, Html } from '@react-three/drei';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Award, Star, TrendingUp } from 'lucide-react';
-
-// 3D Player Card Component with Image Texture
-function Player3DCard({ player, position, isSelected, onClick }) {
-  const meshRef = useRef();
-  const cardRef = useRef();
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.05;
-    }
-    
-    if (cardRef.current && isSelected) {
-      cardRef.current.rotation.y = Math.sin(state.clock.elapsedTime) * 0.2;
-    }
-  });
-
-  return (
-    <group 
-      ref={meshRef} 
-      position={position}
-      onClick={onClick}
-      onPointerOver={() => document.body.style.cursor = 'pointer'}
-      onPointerOut={() => document.body.style.cursor = 'default'}
-    >
-      {/* Main Card Base */}
-      <Box 
-        ref={cardRef}
-        args={[2.5, 3.5, 0.15]} 
-        position={[0, 0, 0]}
-        castShadow
-        receiveShadow
-      >
-        <meshStandardMaterial 
-          color={isSelected ? "#3b82f6" : "#1e3a8a"} 
-          metalness={0.3}
-          roughness={0.4}
-        />
-      </Box>
-      
-      {/* Player Image Container */}
-      <Box args={[2, 2, 0.05]} position={[0, 0.5, 0.1]}>
-        <meshStandardMaterial color="#ffffff" />
-      </Box>
-      
-      {/* Player Image as HTML overlay for better image rendering */}
-      <Html
-        position={[0, 0.5, 0.15]}
-        transform
-        occlude
-        style={{
-          width: '120px',
-          height: '120px',
-          borderRadius: '10px',
-          overflow: 'hidden',
-          border: '3px solid #3b82f6',
-          background: '#ffffff'
-        }}
-      >
-        <img
-          src={player.image}
-          alt={player.name}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block'
-          }}
-          onError={(e) => {
-            e.target.src = 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop';
-          }}
-        />
-      </Html>
-      
-      {/* Stats Background */}
-      <Box args={[2.3, 1.2, 0.05]} position={[0, -1, 0.1]}>
-        <meshStandardMaterial color="#0f172a" opacity={0.9} transparent />
-      </Box>
-      
-      {/* Player Name */}
-      <Text
-        position={[0, -0.5, 0.15]}
-        fontSize={0.15}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        font="/fonts/inter-bold.woff"
-        maxWidth={2}
-      >
-        {player.name}
-      </Text>
-      
-      {/* Team Name */}
-      <Text
-        position={[0, -0.7, 0.15]}
-        fontSize={0.1}
-        color="#60a5fa"
-        anchorX="center"
-        anchorY="middle"
-        maxWidth={2}
-      >
-        {player.team}
-      </Text>
-      
-      {/* Primary Stat */}
-      <Text
-        position={[0, -0.9, 0.15]}
-        fontSize={0.12}
-        color="#fbbf24"
-        anchorX="center"
-        anchorY="middle"
-      >
-        {player.runs ? `${player.runs} Runs` : `${player.wickets} Wickets`}
-      </Text>
-      
-      {/* Secondary Stat */}
-      <Text
-        position={[0, -1.1, 0.15]}
-        fontSize={0.1}
-        color="#34d399"
-        anchorX="center"
-        anchorY="middle"
-      >
-        {player.average ? `Avg: ${player.average}` : `Eco: ${player.economy}`}
-      </Text>
-      
-      {/* Floating Stats Indicators */}
-      {isSelected && (
-        <>
-          <Sphere args={[0.1]} position={[-0.8, 0.8, 0.3]}>
-            <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.3} />
-          </Sphere>
-          <Sphere args={[0.1]} position={[0.8, 0.8, 0.3]}>
-            <meshStandardMaterial color="#34d399" emissive="#34d399" emissiveIntensity={0.3} />
-          </Sphere>
-        </>
-      )}
-    </group>
-  );
-}
-
-// Loading component for 3D scene
-function LoadingFallback() {
-  return (
-    <Html center>
-      <div className="text-white text-lg">Loading 3D Players...</div>
-    </Html>
-  );
-}
 
 export default function PlayerStats() {
   const [selectedCategory, setSelectedCategory] = useState('batsmen');
@@ -318,7 +167,7 @@ export default function PlayerStats() {
         })}
       </motion.div>
 
-      {/* 3D Player Showcase */}
+      {/* Player Showcase */}
       <motion.div 
         className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -327,56 +176,13 @@ export default function PlayerStats() {
       >
         <div className="flex items-center gap-3 mb-6">
           <Trophy className="text-yellow-400" size={32} />
-          <h2 className="text-3xl font-bold text-white">3D Player Showcase</h2>
-          <div className="ml-auto text-sm text-white/70">
-            Click on players to view details
-          </div>
-        </div>
-
-        {/* 3D Canvas */}
-        <div className="h-[500px] mb-8 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-900/50 to-purple-900/50 relative">
-          <Canvas 
-            camera={{ position: [0, 0, 10], fov: 50 }}
-            shadows
-          >
-            <Suspense fallback={<LoadingFallback />}>
-              {/* Lighting Setup */}
-              <ambientLight intensity={0.4} />
-              <pointLight position={[10, 10, 10]} intensity={1} castShadow />
-              <pointLight position={[-10, -10, -10]} color="#3b82f6" intensity={0.5} />
-              <pointLight position={[0, 10, 5]} color="#fbbf24" intensity={0.3} />
-              
-              {/* 3D Player Cards */}
-              {playerData[selectedCategory].slice(0, 3).map((player, index) => (
-                <Player3DCard 
-                  key={player.id} 
-                  player={player} 
-                  position={[(index - 1) * 4, 0, 0]}
-                  isSelected={selectedPlayer?.id === player.id}
-                  onClick={() => handlePlayerSelect(player)}
-                />
-              ))}
-              
-              <OrbitControls 
-                enableZoom={true} 
-                enablePan={false}
-                maxDistance={15}
-                minDistance={5}
-                maxPolarAngle={Math.PI / 2}
-              />
-            </Suspense>
-          </Canvas>
-          
-          {/* 3D Controls Info */}
-          <div className="absolute bottom-4 left-4 text-white/70 text-sm">
-            🖱️ Drag to rotate • 🔍 Scroll to zoom • 👆 Click players for details
-          </div>
+          <h2 className="text-3xl font-bold text-white">Player Statistics</h2>
         </div>
 
         {/* Selected Player Details */}
         {selectedPlayer && (
           <motion.div
-            className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/30"
+            className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/30 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -485,7 +291,7 @@ export default function PlayerStats() {
         )}
 
         {/* Player Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {playerData[selectedCategory].map((player, index) => (
             <motion.div
               key={player.id}
@@ -497,7 +303,7 @@ export default function PlayerStats() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, rotateY: 2 }}
+              whileHover={{ scale: 1.02 }}
               onClick={() => handlePlayerSelect(player)}
             >
               <div className="flex items-center gap-4 mb-4">
