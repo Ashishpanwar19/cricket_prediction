@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Target, Users, BarChart3, Star, TrendingUp, Award, Play, Eye } from 'lucide-react';
+import { Trophy, Target, Users, BarChart3, Star, TrendingUp, Award, Play, Eye, Download, Smartphone } from 'lucide-react';
 import CricketFieldVisualization from './CricketFieldVisualization';
 
 // Enhanced team data with animated logos
@@ -64,66 +64,6 @@ const enhancedTeamData = {
     strengths: ['All-rounders', 'Spin bowling', 'Home advantage'],
     weaknesses: ['Opening partnership', 'Death bowling'],
     animatedLogo: '⚔️'
-  },
-  'Delhi Capitals': {
-    shortName: 'DC',
-    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: ['#17479E', '#EF1B23'],
-    homeGround: 'Arun Jaitley Stadium',
-    captain: 'Rishabh Pant',
-    coach: 'Ricky Ponting',
-    titles: 0,
-    founded: 2008,
-    currentForm: [1, 1, 0, 1, 0],
-    keyPlayers: ['Rishabh Pant', 'Prithvi Shaw', 'Kagiso Rabada'],
-    strengths: ['Young talent', 'Pace bowling', 'Aggressive batting'],
-    weaknesses: ['Experience', 'Spin bowling'],
-    animatedLogo: '🏛️'
-  },
-  'Punjab Kings': {
-    shortName: 'PBKS',
-    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: ['#ED1A37', '#FDDE00'],
-    homeGround: 'PCA Stadium',
-    captain: 'Shikhar Dhawan',
-    coach: 'Anil Kumble',
-    titles: 0,
-    founded: 2008,
-    currentForm: [0, 1, 0, 1, 1],
-    keyPlayers: ['Shikhar Dhawan', 'KL Rahul', 'Mohammed Shami'],
-    strengths: ['Opening partnership', 'Power hitting'],
-    weaknesses: ['Middle order', 'Death bowling'],
-    animatedLogo: '🦁'
-  },
-  'Rajasthan Royals': {
-    shortName: 'RR',
-    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: ['#254AA5', '#E91C7A'],
-    homeGround: 'Sawai Mansingh Stadium',
-    captain: 'Sanju Samson',
-    coach: 'Kumar Sangakkara',
-    titles: 1,
-    founded: 2008,
-    currentForm: [1, 0, 1, 0, 1],
-    keyPlayers: ['Sanju Samson', 'Jos Buttler', 'Yuzvendra Chahal'],
-    strengths: ['Explosive batting', 'Spin bowling'],
-    weaknesses: ['Consistency', 'Death bowling'],
-    animatedLogo: '👑'
-  },
-  'Sunrisers Hyderabad': {
-    shortName: 'SRH',
-    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: ['#FF822A', '#000000'],
-    homeGround: 'Rajiv Gandhi Stadium',
-    captain: 'Aiden Markram',
-    coach: 'Brian Lara',
-    titles: 1,
-    founded: 2013,
-    currentForm: [0, 0, 1, 1, 0],
-    keyPlayers: ['Aiden Markram', 'Rashid Khan', 'Bhuvneshwar Kumar'],
-    strengths: ['Bowling attack', 'Spin bowling'],
-    weaknesses: ['Batting depth', 'Power hitting'],
-    animatedLogo: '☀️'
   }
 };
 
@@ -461,21 +401,155 @@ function WinProbabilityCalculator({ team1, team2 }) {
   );
 }
 
+// Mobile App Download Component
+function MobileAppDownload() {
+  const [downloadStarted, setDownloadStarted] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+
+  const handleDownload = (platform) => {
+    setDownloadStarted(true);
+    setDownloadProgress(0);
+
+    // Simulate download progress
+    const interval = setInterval(() => {
+      setDownloadProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          // Create and download a demo APK file
+          const element = document.createElement('a');
+          const file = new Blob(['Cricket Predictor App - Demo Version'], { type: 'application/vnd.android.package-archive' });
+          element.href = URL.createObjectURL(file);
+          element.download = `cricket-predictor-${platform.toLowerCase()}.apk`;
+          document.body.appendChild(element);
+          element.click();
+          document.body.removeChild(element);
+          
+          setTimeout(() => {
+            setDownloadStarted(false);
+            setDownloadProgress(0);
+          }, 2000);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 200);
+  };
+
+  return (
+    <motion.div
+      className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-lg rounded-3xl p-8 border border-blue-400/30"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      <div className="text-center mb-8">
+        <motion.div
+          className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center"
+          animate={{
+            scale: [1, 1.05, 1],
+            rotate: [0, 2, -2, 0]
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          <Smartphone className="text-white" size={40} />
+        </motion.div>
+        
+        <h3 className="text-3xl font-bold text-white mb-4">Download Cricket Predictor</h3>
+        <p className="text-blue-200 mb-8">
+          Get real-time cricket predictions on your mobile device
+        </p>
+
+        {downloadStarted ? (
+          <div className="space-y-4">
+            <div className="text-white font-bold">Downloading... {downloadProgress}%</div>
+            <div className="w-full bg-white/20 rounded-full h-4">
+              <motion.div
+                className="bg-gradient-to-r from-blue-400 to-purple-400 h-4 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${downloadProgress}%` }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-6">
+            <motion.button
+              onClick={() => handleDownload('Android')}
+              className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-2xl font-bold shadow-lg"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Download size={24} />
+              <div className="text-left">
+                <div>Download for</div>
+                <div className="text-sm opacity-80">Android</div>
+              </div>
+            </motion.button>
+
+            <motion.button
+              onClick={() => handleDownload('iOS')}
+              className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-gray-700 to-gray-900 text-white rounded-2xl font-bold shadow-lg"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Download size={24} />
+              <div className="text-left">
+                <div>Download for</div>
+                <div className="text-sm opacity-80">iOS</div>
+              </div>
+            </motion.button>
+          </div>
+        )}
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.div 
+            className="text-center"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Star className="text-yellow-400 mx-auto mb-2" size={32} />
+            <h4 className="text-white font-bold">4.8★ Rating</h4>
+            <p className="text-white/70">50,000+ Downloads</p>
+          </motion.div>
+          <motion.div 
+            className="text-center"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Smartphone className="text-blue-400 mx-auto mb-2" size={32} />
+            <h4 className="text-white font-bold">Cross-Platform</h4>
+            <p className="text-white/70">iOS & Android</p>
+          </motion.div>
+          <motion.div 
+            className="text-center"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Trophy className="text-green-400 mx-auto mb-2" size={32} />
+            <h4 className="text-white font-bold">Real-time Data</h4>
+            <p className="text-white/70">Live Updates</p>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 // Main Enhanced Features Component
 export default function EnhancedFeatures() {
   const [selectedTeam1, setSelectedTeam1] = useState('Mumbai Indians');
   const [selectedTeam2, setSelectedTeam2] = useState('Chennai Super Kings');
   const [activeView, setActiveView] = useState('overview');
   const [visualizationTeams, setVisualizationTeams] = useState({
-    batting: 'Chennai Super Kings',
-    bowling: 'Mumbai Indians'
+    batting: 'CSK',
+    bowling: 'MI'
   });
 
   // Function to start live visualization with predicted teams
   const startLiveVisualization = () => {
+    // Convert full team names to short names for the visualization
+    const team1Short = enhancedTeamData[selectedTeam1]?.shortName || 'CSK';
+    const team2Short = enhancedTeamData[selectedTeam2]?.shortName || 'MI';
+    
     setVisualizationTeams({
-      batting: selectedTeam1,
-      bowling: selectedTeam2
+      batting: team1Short,
+      bowling: team2Short
     });
     setActiveView('field');
   };
@@ -489,10 +563,10 @@ export default function EnhancedFeatures() {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-4xl font-bold text-white mb-4">
-          🏏 Enhanced Cricket Analytics with Animated Features
+          🏏 Professional Cricket Analytics with Mobile App
         </h1>
         <p className="text-blue-200 text-lg">
-          Experience next-generation cricket prediction with beautiful animated team logos and player avatars
+          Experience next-generation cricket prediction with professional mobile app download
         </p>
       </motion.div>
 
@@ -524,6 +598,17 @@ export default function EnhancedFeatures() {
         >
           <Eye size={20} />
           Live Field Visualization
+        </button>
+        <button
+          onClick={() => setActiveView('mobile')}
+          className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 ${
+            activeView === 'mobile'
+              ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white'
+              : 'bg-white/10 text-white hover:bg-white/20'
+          }`}
+        >
+          <Smartphone size={20} />
+          Mobile App
         </button>
       </motion.div>
 
@@ -620,95 +705,8 @@ export default function EnhancedFeatures() {
               <RealTimeScorePrediction team1={selectedTeam1} team2={selectedTeam2} />
               <WinProbabilityCalculator team1={selectedTeam1} team2={selectedTeam2} />
             </div>
-
-            {/* Team Comparison Quick Stats */}
-            <motion.div
-              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              <div className="flex items-center gap-3 mb-8">
-                <Trophy className="text-yellow-400" size={32} />
-                <h2 className="text-3xl font-bold text-white">Head-to-Head Comparison</h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {[selectedTeam1, selectedTeam2].map((team, index) => (
-                  <motion.div
-                    key={team}
-                    className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/30"
-                    initial={{ opacity: 0, x: index === 0 ? -50 : 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 + index * 0.1 }}
-                  >
-                    <div className="flex items-center gap-4 mb-6">
-                      <AnimatedTeamLogo team={team} />
-                      <div>
-                        <h3 className="text-xl font-bold text-white">{team}</h3>
-                        <p className="text-blue-300">{enhancedTeamData[team].shortName}</p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <motion.div 
-                        className="bg-white/10 rounded-xl p-3 text-center"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <div className="text-2xl font-bold text-yellow-400">{enhancedTeamData[team].titles}</div>
-                        <div className="text-white/70 text-sm">Titles</div>
-                      </motion.div>
-                      <motion.div 
-                        className="bg-white/10 rounded-xl p-3 text-center"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <div className="text-2xl font-bold text-green-400">
-                          {enhancedTeamData[team].currentForm.reduce((a, b) => a + b, 0)}/5
-                        </div>
-                        <div className="text-white/70 text-sm">Recent Form</div>
-                      </motion.div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div>
-                        <div className="text-white/70 text-sm mb-1">Strengths</div>
-                        <div className="flex flex-wrap gap-1">
-                          {enhancedTeamData[team].strengths.map((strength, idx) => (
-                            <motion.span
-                              key={idx}
-                              className="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full"
-                              initial={{ opacity: 0, scale: 0 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: 0.8 + idx * 0.1 }}
-                            >
-                              {strength}
-                            </motion.span>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="text-white/70 text-sm mb-1">Weaknesses</div>
-                        <div className="flex flex-wrap gap-1">
-                          {enhancedTeamData[team].weaknesses.map((weakness, idx) => (
-                            <motion.span
-                              key={idx}
-                              className="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded-full"
-                              initial={{ opacity: 0, scale: 0 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: 0.9 + idx * 0.1 }}
-                            >
-                              {weakness}
-                            </motion.span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
-        ) : (
+        ) : activeView === 'field' ? (
           <motion.div
             key="field"
             initial={{ opacity: 0, x: 100 }}
@@ -717,10 +715,19 @@ export default function EnhancedFeatures() {
             transition={{ duration: 0.5 }}
           >
             <CricketFieldVisualization 
-              initialBattingTeam={enhancedTeamData[visualizationTeams.batting]?.shortName || 'CSK'}
-              initialBowlingTeam={enhancedTeamData[visualizationTeams.bowling]?.shortName || 'MI'}
-              teamData={enhancedTeamData}
+              initialBattingTeam={visualizationTeams.batting}
+              initialBowlingTeam={visualizationTeams.bowling}
             />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="mobile"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.5 }}
+          >
+            <MobileAppDownload />
           </motion.div>
         )}
       </AnimatePresence>
