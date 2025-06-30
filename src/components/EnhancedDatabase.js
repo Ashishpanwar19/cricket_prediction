@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Database, Users, Trophy, BarChart3, Search, Filter, Download, Upload, RefreshCw } from 'lucide-react';
+import { Database, Users, Trophy, BarChart3, Search, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 
 export default function EnhancedDatabase() {

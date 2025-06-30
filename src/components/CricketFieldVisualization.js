@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Target, Users, TrendingUp, Clock, RefreshCw, Star } from 'lucide-react';
+import { Target, RefreshCw, Star } from 'lucide-react';
 
 // Complete team data for all IPL teams with animated player avatars
 const completeTeamData = {
