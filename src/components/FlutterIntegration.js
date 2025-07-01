@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Smartphone, Download, Star, Shield, Zap, Globe, CheckCircle, AlertCircle, Play, Code, Database } from 'lucide-react';
+import { Smartphone, Download, Star, Shield, Zap, Globe, CheckCircle, Play, Code } from 'lucide-react';
 
 export default function FlutterIntegration() {
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState('android');
-  const [showCode, setShowCode] = useState(false);
   const [activeDemo, setActiveDemo] = useState('features');
 
   // Simulate Flutter app features
@@ -24,7 +23,7 @@ export default function FlutterIntegration() {
       id: 'offline',
       title: 'Offline Support',
       description: 'Access cached data and predictions even without internet',
-      icon: Database,
+      icon: Shield,
       color: 'from-blue-400 to-purple-500',
       demo: 'Cached: 50+ teams, 500+ players, 100+ matches'
     },

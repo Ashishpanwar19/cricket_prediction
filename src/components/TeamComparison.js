@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
-import { Trophy, Users, TrendingUp, Target } from 'lucide-react';
+import { Trophy, TrendingUp, Target } from 'lucide-react';
 
 const teamLogos = {
   'Mumbai Indians': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
@@ -181,7 +181,7 @@ export default function TeamComparison() {
           transition={{ delay: 0.2 }}
         >
           <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <BarChart className="text-blue-400" size={28} />
+            <TrendingUp className="text-blue-400" size={28} />
             Performance Comparison
           </h3>
           

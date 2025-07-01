@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
-import { TrendingUp, Target, Clock, MapPin } from 'lucide-react';
+import { TrendingUp, Target, MapPin } from 'lucide-react';
 
 const teamLogos = {
   'Mumbai Indians': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
@@ -234,7 +233,6 @@ export default function ScorePrediction() {
 
             <div className="space-y-3">
               <label className="block text-sm font-medium text-blue-200 flex items-center gap-2">
-                <Clock size={16} />
                 Overs
               </label>
               <input
