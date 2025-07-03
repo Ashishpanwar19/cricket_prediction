@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Target, Users, BarChart3, Star, TrendingUp, Award, Play, Eye, Download, Smartphone } from 'lucide-react';
+import { Trophy, Target, Users, Download, Smartphone, Play, Eye } from 'lucide-react';
 import CricketFieldVisualization from './CricketFieldVisualization';
 
 // Enhanced team data with animated logos
@@ -11,13 +11,8 @@ const enhancedTeamData = {
     colors: ['#004BA0', '#D1AB3E'],
     homeGround: 'Wankhede Stadium',
     captain: 'Rohit Sharma',
-    coach: 'Mark Boucher',
     titles: 5,
-    founded: 2008,
     currentForm: [1, 1, 0, 1, 1],
-    keyPlayers: ['Rohit Sharma', 'Jasprit Bumrah', 'Hardik Pandya'],
-    strengths: ['Power hitting', 'Death bowling', 'Experience'],
-    weaknesses: ['Middle order', 'Spin bowling'],
     animatedLogo: '🏏'
   },
   'Chennai Super Kings': {
@@ -26,13 +21,8 @@ const enhancedTeamData = {
     colors: ['#FFFF3C', '#F99D1C'],
     homeGround: 'MA Chidambaram Stadium',
     captain: 'MS Dhoni',
-    coach: 'Stephen Fleming',
     titles: 4,
-    founded: 2008,
     currentForm: [1, 0, 1, 1, 0],
-    keyPlayers: ['MS Dhoni', 'Ravindra Jadeja', 'Ruturaj Gaikwad'],
-    strengths: ['Experienced squad', 'Spin bowling', 'Finishing'],
-    weaknesses: ['Pace bowling', 'Youth factor'],
     animatedLogo: '🦁'
   },
   'Royal Challengers Bangalore': {
@@ -41,13 +31,8 @@ const enhancedTeamData = {
     colors: ['#EC1C24', '#FFD700'],
     homeGround: 'M. Chinnaswamy Stadium',
     captain: 'Virat Kohli',
-    coach: 'Mike Hesson',
     titles: 0,
-    founded: 2008,
     currentForm: [0, 1, 1, 0, 1],
-    keyPlayers: ['Virat Kohli', 'Glenn Maxwell', 'Mohammed Siraj'],
-    strengths: ['Top order batting', 'Aggressive approach'],
-    weaknesses: ['Bowling depth', 'Consistency'],
     animatedLogo: '👑'
   },
   'Kolkata Knight Riders': {
@@ -56,13 +41,8 @@ const enhancedTeamData = {
     colors: ['#3A225D', '#B3A123'],
     homeGround: 'Eden Gardens',
     captain: 'Shreyas Iyer',
-    coach: 'Brendon McCullum',
     titles: 2,
-    founded: 2008,
     currentForm: [1, 0, 0, 1, 1],
-    keyPlayers: ['Shreyas Iyer', 'Andre Russell', 'Sunil Narine'],
-    strengths: ['All-rounders', 'Spin bowling', 'Home advantage'],
-    weaknesses: ['Opening partnership', 'Death bowling'],
     animatedLogo: '⚔️'
   }
 };
@@ -107,10 +87,9 @@ const AnimatedTeamLogo = ({ team, size = 'w-16 h-16' }) => {
   );
 };
 
-// Enhanced Interactive Team Selector Component
+// Interactive Team Selector Component
 function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTeam = null }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredTeam, setHoveredTeam] = useState(null);
 
   const availableTeams = Object.entries(enhancedTeamData).filter(
     ([teamName]) => teamName !== excludeTeam
@@ -120,7 +99,6 @@ function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTea
     <div className="relative">
       <label className="block text-sm font-medium text-blue-200 mb-3">{label}</label>
       
-      {/* Selected Team Display */}
       <motion.div
         className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/30 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
@@ -157,7 +135,6 @@ function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTea
         </div>
       </motion.div>
 
-      {/* Dropdown Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -176,8 +153,6 @@ function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTea
                   onTeamSelect(teamName);
                   setIsOpen(false);
                 }}
-                onMouseEnter={() => setHoveredTeam(teamName)}
-                onMouseLeave={() => setHoveredTeam(null)}
                 whileHover={{ x: 5 }}
               >
                 <div className="flex items-center gap-3">
@@ -191,25 +166,6 @@ function InteractiveTeamSelector({ selectedTeam, onTeamSelect, label, excludeTea
                     <div className="text-white/70 text-xs">Titles</div>
                   </div>
                 </div>
-                
-                {hoveredTeam === teamName && (
-                  <motion.div
-                    className="mt-3 pt-3 border-t border-white/20"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                  >
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <span className="text-white/70">Captain: </span>
-                        <span className="text-white">{teamData.captain}</span>
-                      </div>
-                      <div>
-                        <span className="text-white/70">Coach: </span>
-                        <span className="text-white">{teamData.coach}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
               </motion.div>
             ))}
           </motion.div>
@@ -229,7 +185,6 @@ function RealTimeScorePrediction({ team1, team2 }) {
     if (team1 && team2) {
       setIsCalculating(true);
       
-      // Simulate real-time calculation
       const timer = setTimeout(() => {
         const baseScore = 160;
         const team1Strength = enhancedTeamData[team1].titles * 5;
@@ -306,101 +261,6 @@ function RealTimeScorePrediction({ team1, team2 }) {
   );
 }
 
-// Win Probability Calculator
-function WinProbabilityCalculator({ team1, team2 }) {
-  const [probabilities, setProbabilities] = useState(null);
-
-  useEffect(() => {
-    if (team1 && team2) {
-      const team1Data = enhancedTeamData[team1];
-      const team2Data = enhancedTeamData[team2];
-      
-      // Calculate based on titles, form, and random factors
-      const team1Score = team1Data.titles * 10 + team1Data.currentForm.reduce((a, b) => a + b, 0) * 5;
-      const team2Score = team2Data.titles * 10 + team2Data.currentForm.reduce((a, b) => a + b, 0) * 5;
-      
-      const total = team1Score + team2Score;
-      const team1Prob = Math.round((team1Score / total) * 100);
-      const team2Prob = 100 - team1Prob;
-      
-      setProbabilities({ team1: team1Prob, team2: team2Prob });
-    }
-  }, [team1, team2]);
-
-  return (
-    <motion.div
-      className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-3xl p-8 border border-purple-400/30"
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-    >
-      <div className="flex items-center gap-3 mb-6">
-        <BarChart3 className="text-purple-400" size={32} />
-        <h3 className="text-2xl font-bold text-white">Win Probability</h3>
-      </div>
-
-      {probabilities ? (
-        <div className="space-y-6">
-          <div>
-            <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-3">
-                <AnimatedTeamLogo team={team1} size="w-8 h-8" />
-                <span className="text-white font-medium">{team1}</span>
-              </div>
-              <span className="text-purple-400 font-bold text-xl">{probabilities.team1}%</span>
-            </div>
-            <div className="w-full bg-white/20 rounded-full h-4">
-              <motion.div
-                className="bg-gradient-to-r from-purple-400 to-pink-400 h-4 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${probabilities.team1}%` }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-3">
-                <AnimatedTeamLogo team={team2} size="w-8 h-8" />
-                <span className="text-white font-medium">{team2}</span>
-              </div>
-              <span className="text-pink-400 font-bold text-xl">{probabilities.team2}%</span>
-            </div>
-            <div className="w-full bg-white/20 rounded-full h-4">
-              <motion.div
-                className="bg-gradient-to-r from-pink-400 to-red-400 h-4 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${probabilities.team2}%` }}
-                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 p-4 bg-white/10 rounded-xl">
-            <h4 className="text-white font-bold mb-2">Key Factors</h4>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <span className="text-white/70">Titles: </span>
-                <span className="text-white">{enhancedTeamData[team1].titles} vs {enhancedTeamData[team2].titles}</span>
-              </div>
-              <div>
-                <span className="text-white/70">Recent Form: </span>
-                <span className="text-white">
-                  {enhancedTeamData[team1].currentForm.reduce((a, b) => a + b, 0)}/5 vs {enhancedTeamData[team2].currentForm.reduce((a, b) => a + b, 0)}/5
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="text-center py-8 text-white/60">
-          Select teams to calculate win probability
-        </div>
-      )}
-    </motion.div>
-  );
-}
-
 // Mobile App Download Component
 function MobileAppDownload() {
   const [downloadStarted, setDownloadStarted] = useState(false);
@@ -410,12 +270,10 @@ function MobileAppDownload() {
     setDownloadStarted(true);
     setDownloadProgress(0);
 
-    // Simulate download progress
     const interval = setInterval(() => {
       setDownloadProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
-          // Create and download a demo APK file
           const element = document.createElement('a');
           const file = new Blob(['Cricket Predictor App - Demo Version'], { type: 'application/vnd.android.package-archive' });
           element.href = URL.createObjectURL(file);
@@ -499,33 +357,6 @@ function MobileAppDownload() {
             </motion.button>
           </div>
         )}
-
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <motion.div 
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Star className="text-yellow-400 mx-auto mb-2" size={32} />
-            <h4 className="text-white font-bold">4.8★ Rating</h4>
-            <p className="text-white/70">50,000+ Downloads</p>
-          </motion.div>
-          <motion.div 
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Smartphone className="text-blue-400 mx-auto mb-2" size={32} />
-            <h4 className="text-white font-bold">Cross-Platform</h4>
-            <p className="text-white/70">iOS & Android</p>
-          </motion.div>
-          <motion.div 
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Trophy className="text-green-400 mx-auto mb-2" size={32} />
-            <h4 className="text-white font-bold">Real-time Data</h4>
-            <p className="text-white/70">Live Updates</p>
-          </motion.div>
-        </div>
       </div>
     </motion.div>
   );
@@ -536,23 +367,6 @@ export default function EnhancedFeatures() {
   const [selectedTeam1, setSelectedTeam1] = useState('Mumbai Indians');
   const [selectedTeam2, setSelectedTeam2] = useState('Chennai Super Kings');
   const [activeView, setActiveView] = useState('overview');
-  const [visualizationTeams, setVisualizationTeams] = useState({
-    batting: 'CSK',
-    bowling: 'MI'
-  });
-
-  // Function to start live visualization with predicted teams
-  const startLiveVisualization = () => {
-    // Convert full team names to short names for the visualization
-    const team1Short = enhancedTeamData[selectedTeam1]?.shortName || 'CSK';
-    const team2Short = enhancedTeamData[selectedTeam2]?.shortName || 'MI';
-    
-    setVisualizationTeams({
-      batting: team1Short,
-      bowling: team2Short
-    });
-    setActiveView('field');
-  };
 
   return (
     <div className="space-y-8">
@@ -633,17 +447,6 @@ export default function EnhancedFeatures() {
               <div className="flex items-center gap-3 mb-8">
                 <Users className="text-blue-400" size={32} />
                 <h2 className="text-3xl font-bold text-white">Interactive Team Selection with Animated Logos</h2>
-                <div className="ml-auto">
-                  <motion.button
-                    onClick={startLiveVisualization}
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-600 text-white font-bold rounded-xl"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Play size={20} />
-                    View Live Match
-                  </motion.button>
-                </div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -701,9 +504,8 @@ export default function EnhancedFeatures() {
             </motion.div>
 
             {/* Real-time Predictions */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
               <RealTimeScorePrediction team1={selectedTeam1} team2={selectedTeam2} />
-              <WinProbabilityCalculator team1={selectedTeam1} team2={selectedTeam2} />
             </div>
           </motion.div>
         ) : activeView === 'field' ? (
@@ -714,10 +516,7 @@ export default function EnhancedFeatures() {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
           >
-            <CricketFieldVisualization 
-              initialBattingTeam={visualizationTeams.batting}
-              initialBowlingTeam={visualizationTeams.bowling}
-            />
+            <CricketFieldVisualization />
           </motion.div>
         ) : (
           <motion.div

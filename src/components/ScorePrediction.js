@@ -6,11 +6,7 @@ const teamLogos = {
   'Mumbai Indians': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
   'Chennai Super Kings': 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
   'Royal Challengers Bangalore': 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  'Kolkata Knight Riders': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  'Delhi Capitals': 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  'Punjab Kings': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  'Rajasthan Royals': 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  'Sunrisers Hyderabad': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop'
+  'Kolkata Knight Riders': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop'
 };
 
 export default function ScorePrediction() {
@@ -22,8 +18,7 @@ export default function ScorePrediction() {
     toss_decision: 'bat',
     pitch_type: 'flat',
     weather: 'sunny',
-    overs: 20,
-    powerplay_overs: 6
+    overs: 20
   });
 
   const [prediction, setPrediction] = useState(null);
@@ -32,16 +27,12 @@ export default function ScorePrediction() {
 
   const teams = [
     'Mumbai Indians', 'Chennai Super Kings', 
-    'Royal Challengers Bangalore', 'Kolkata Knight Riders',
-    'Delhi Capitals', 'Punjab Kings',
-    'Rajasthan Royals', 'Sunrisers Hyderabad'
+    'Royal Challengers Bangalore', 'Kolkata Knight Riders'
   ];
 
   const venues = [
     'Wankhede Stadium', 'M. Chinnaswamy Stadium',
-    'Eden Gardens', 'Arun Jaitley Stadium',
-    'MA Chidambaram Stadium', 'Narendra Modi Stadium',
-    'PCA Stadium', 'Rajiv Gandhi Stadium'
+    'Eden Gardens', 'MA Chidambaram Stadium'
   ];
 
   const handleChange = (e) => {
@@ -57,7 +48,6 @@ export default function ScorePrediction() {
     setIsLoading(true);
     
     try {
-      // Simulate API calls with mock data for demo
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       const mockScore = Math.floor(Math.random() * (200 - 120) + 120);
@@ -75,7 +65,6 @@ export default function ScorePrediction() {
       });
     } catch (err) {
       console.error("Prediction error:", err);
-      alert("Error getting prediction. Using demo data.");
     } finally {
       setIsLoading(false);
     }
@@ -98,18 +87,14 @@ export default function ScorePrediction() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Team Selection with Logos */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <motion.div 
-              className="space-y-3"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
+            <motion.div className="space-y-3" whileHover={{ scale: 1.02 }}>
               <label className="block text-sm font-medium text-blue-200">Team 1</label>
               <div className="relative">
                 <select
                   name="team1"
                   value={formData.team1}
                   onChange={handleChange}
-                  className="w-full p-4 pl-16 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  className="w-full p-4 pl-16 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
                   required
                 >
                   {teams.map(team => (
@@ -124,18 +109,14 @@ export default function ScorePrediction() {
               </div>
             </motion.div>
 
-            <motion.div 
-              className="space-y-3"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
+            <motion.div className="space-y-3" whileHover={{ scale: 1.02 }}>
               <label className="block text-sm font-medium text-blue-200">Team 2</label>
               <div className="relative">
                 <select
                   name="team2"
                   value={formData.team2}
                   onChange={handleChange}
-                  className="w-full p-4 pl-16 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  className="w-full p-4 pl-16 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
                   required
                 >
                   {teams.filter(t => t !== formData.team1).map(team => (
@@ -172,34 +153,6 @@ export default function ScorePrediction() {
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-blue-200">Toss Winner</label>
-              <select
-                name="toss_winner"
-                value={formData.toss_winner}
-                onChange={handleChange}
-                className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
-                required
-              >
-                <option value={formData.team1} className="text-gray-900">{formData.team1}</option>
-                <option value={formData.team2} className="text-gray-900">{formData.team2}</option>
-              </select>
-            </div>
-
-            <div className="space-y-3">
-              <label className="block text-sm font-medium text-blue-200">Toss Decision</label>
-              <select
-                name="toss_decision"
-                value={formData.toss_decision}
-                onChange={handleChange}
-                className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
-                required
-              >
-                <option value="bat" className="text-gray-900">Bat First</option>
-                <option value="field" className="text-gray-900">Field First</option>
-              </select>
-            </div>
-
-            <div className="space-y-3">
               <label className="block text-sm font-medium text-blue-200">Pitch Type</label>
               <select
                 name="pitch_type"
@@ -229,22 +182,6 @@ export default function ScorePrediction() {
                 <option value="humid" className="text-gray-900">Humid</option>
                 <option value="rainy" className="text-gray-900">Rainy</option>
               </select>
-            </div>
-
-            <div className="space-y-3">
-              <label className="block text-sm font-medium text-blue-200 flex items-center gap-2">
-                Overs
-              </label>
-              <input
-                type="number"
-                name="overs"
-                value={formData.overs}
-                onChange={handleChange}
-                min="5"
-                max="50"
-                className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
-                required
-              />
             </div>
           </div>
 
@@ -350,34 +287,6 @@ export default function ScorePrediction() {
             </div>
           </motion.div>
         )}
-
-        {/* Match Info Card */}
-        <motion.div 
-          className="bg-white/10 backdrop-blur-lg p-6 rounded-3xl border border-white/20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h3 className="text-lg font-bold text-white mb-4">Match Details</h3>
-          <div className="space-y-3 text-sm">
-            <div className="flex justify-between">
-              <span className="text-white/70">Venue:</span>
-              <span className="text-white">{formData.venue}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/70">Pitch:</span>
-              <span className="text-white capitalize">{formData.pitch_type}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/70">Weather:</span>
-              <span className="text-white capitalize">{formData.weather}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/70">Overs:</span>
-              <span className="text-white">{formData.overs}</span>
-            </div>
-          </div>
-        </motion.div>
       </motion.div>
     </div>
   );

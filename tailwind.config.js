@@ -43,10 +43,6 @@ module.exports = {
       },
       fontFamily: {
         'display': ['Inter', 'system-ui', 'sans-serif'],
-      },
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
       }
     },
   },

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Smartphone, Download, Star, Shield, Zap, Globe, CheckCircle, Play, Code } from 'lucide-react';
+import { Smartphone, Download, Star, Shield, Zap, Globe, CheckCircle, Code } from 'lucide-react';
 
 export default function FlutterIntegration() {
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -9,7 +9,6 @@ export default function FlutterIntegration() {
   const [selectedPlatform, setSelectedPlatform] = useState('android');
   const [activeDemo, setActiveDemo] = useState('features');
 
-  // Simulate Flutter app features
   const flutterFeatures = [
     {
       id: 'realtime',
@@ -45,161 +44,18 @@ export default function FlutterIntegration() {
     }
   ];
 
-  // Flutter code examples
-  const flutterCode = {
-    main: `// main.dart - Flutter Cricket Prediction App
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-void main() {
-  runApp(CricketPredictionApp());
-}
-
-class CricketPredictionApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Cricket Predictor',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomeScreen(),
-    );
-  }
-}`,
-    api: `// api_service.dart - API Integration
-class ApiService {
-  static const String baseUrl = 'http://localhost:5000/api';
-  
-  static Future<List<Team>> getTeams() async {
-    try {
-      final response = await http.get(
-        Uri.parse('\$baseUrl/teams'),
-        headers: {'Content-Type': 'application/json'},
-      );
-      
-      if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(response.body);
-        return data.map((team) => Team.fromJson(team)).toList();
-      }
-      throw Exception('Failed to load teams');
-    } catch (e) {
-      throw Exception('Network error: \$e');
-    }
-  }
-  
-  static Future<PredictionResult> predictScore({
-    required String team1,
-    required String team2,
-    required String venue,
-  }) async {
-    final response = await http.post(
-      Uri.parse('\$baseUrl/predict_score'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'team1': team1,
-        'team2': team2,
-        'venue': venue,
-        'pitch_type': 'flat',
-        'weather': 'sunny',
-      }),
-    );
-    
-    if (response.statusCode == 200) {
-      return PredictionResult.fromJson(json.decode(response.body));
-    }
-    throw Exception('Prediction failed');
-  }
-}`,
-    ui: `// home_screen.dart - Main UI
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> 
-    with TickerProviderStateMixin {
-  List<Team> teams = [];
-  String? selectedTeam1;
-  String? selectedTeam2;
-  PredictionResult? prediction;
-  late AnimationController _animationController;
-  
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    );
-    loadTeams();
-  }
-  
-  Future<void> loadTeams() async {
-    try {
-      final teamList = await ApiService.getTeams();
-      setState(() {
-        teams = teamList;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading teams: \$e')),
-      );
-    }
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('🏏 Cricket Predictor'),
-        backgroundColor: Colors.blue[800],
-        elevation: 0,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.blue[800]!, Colors.purple[800]!],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                _buildTeamSelection(),
-                SizedBox(height: 20),
-                _buildPredictButton(),
-                if (prediction != null) _buildPredictionResult(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}`
-  };
-
   const handleDownload = async (platform) => {
     setSelectedPlatform(platform);
     setIsDownloading(true);
     setDownloadProgress(0);
     setDownloadComplete(false);
 
-    // Simulate download progress
     for (let i = 0; i <= 100; i += 5) {
       await new Promise(resolve => setTimeout(resolve, 100));
       setDownloadProgress(i);
     }
 
-    // Generate and download actual APK file
-    const appContent = `
-Cricket Predictor Mobile App - ${platform.toUpperCase()}
+    const appContent = `Cricket Predictor Mobile App - ${platform.toUpperCase()}
 Version: 2.0.0
 Build: ${Date.now()}
 
@@ -208,17 +64,8 @@ Features:
 - Offline data support
 - Push notifications
 - Cross-platform compatibility
-- Professional UI/UX
 
-API Endpoints:
-- GET /api/teams
-- GET /api/players
-- POST /api/predict_score
-- POST /api/predict_win
-
-This is a demo ${platform} application file.
-Install on your ${platform} device to access cricket predictions.
-    `;
+This is a demo ${platform} application file.`;
 
     const blob = new Blob([appContent], { 
       type: platform === 'android' ? 'application/vnd.android.package-archive' : 'application/octet-stream' 
@@ -235,7 +82,6 @@ Install on your ${platform} device to access cricket predictions.
     setDownloadComplete(true);
     setIsDownloading(false);
 
-    // Reset after 3 seconds
     setTimeout(() => {
       setDownloadComplete(false);
       setDownloadProgress(0);
@@ -351,39 +197,6 @@ Install on your ${platform} device to access cricket predictions.
                     </motion.div>
                   );
                 })}
-              </div>
-            </motion.div>
-
-            {/* App Screenshots Mockup */}
-            <motion.div
-              className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-lg rounded-3xl p-8 border border-blue-400/30"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">
-                📱 App Interface Preview
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {['Home Screen', 'Predictions', 'Team Stats'].map((screen, index) => (
-                  <motion.div
-                    key={screen}
-                    className="bg-gray-900 rounded-3xl p-4 border-4 border-gray-700"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl h-64 flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <Smartphone size={48} className="mx-auto mb-4" />
-                        <h4 className="font-bold text-lg">{screen}</h4>
-                        <p className="text-sm opacity-80">Flutter UI</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
               </div>
             </motion.div>
           </motion.div>
@@ -549,51 +362,80 @@ Install on your ${platform} device to access cricket predictions.
                 💻 Flutter Implementation Code
               </h2>
 
-              <div className="space-y-6">
-                {Object.entries(flutterCode).map(([filename, code], index) => (
-                  <motion.div
-                    key={filename}
-                    className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-700"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <div className="bg-gray-800 px-6 py-3 border-b border-gray-700">
-                      <div className="flex items-center gap-3">
-                        <div className="flex gap-2">
-                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        </div>
-                        <span className="text-white font-mono text-sm">{filename}.dart</span>
-                      </div>
-                    </div>
-                    <div className="p-6 overflow-x-auto">
-                      <pre className="text-green-400 font-mono text-sm leading-relaxed">
-                        <code>{code}</code>
-                      </pre>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Flutter Setup Instructions */}
               <motion.div
-                className="mt-8 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl p-6 border border-purple-400/30"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-700"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
               >
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Play size={24} />
-                  Flutter Setup Instructions
-                </h3>
-                <div className="space-y-3 text-white/80">
-                  <p>1. Install Flutter SDK from flutter.dev</p>
-                  <p>2. Create new project: <code className="bg-black/30 px-2 py-1 rounded">flutter create cricket_predictor</code></p>
-                  <p>3. Add dependencies to pubspec.yaml: http, shared_preferences</p>
-                  <p>4. Replace main.dart with the code above</p>
-                  <p>5. Run: <code className="bg-black/30 px-2 py-1 rounded">flutter run</code></p>
+                <div className="bg-gray-800 px-6 py-3 border-b border-gray-700">
+                  <div className="flex items-center gap-3">
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <span className="text-white font-mono text-sm">main.dart</span>
+                  </div>
+                </div>
+                <div className="p-6 overflow-x-auto">
+                  <pre className="text-green-400 font-mono text-sm leading-relaxed">
+                    <code>{`// main.dart - Flutter Cricket Prediction App
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+void main() {
+  runApp(CricketPredictionApp());
+}
+
+class CricketPredictionApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Cricket Predictor',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Team> teams = [];
+  String? selectedTeam1;
+  String? selectedTeam2;
+  
+  @override
+  void initState() {
+    super.initState();
+    loadTeams();
+  }
+  
+  Future<void> loadTeams() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/teams'),
+      );
+      
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        setState(() {
+          teams = data.map((team) => Team.fromJson(team)).toList();
+        });
+      }
+    } catch (e) {
+      print('Error loading teams: \$e');
+    }
+  }
+}`}</code>
+                  </pre>
                 </div>
               </motion.div>
             </motion.div>

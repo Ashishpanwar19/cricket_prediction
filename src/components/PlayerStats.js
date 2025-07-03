@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Award, Star, TrendingUp, Users } from 'lucide-react';
 
-// Animated player avatars using CSS-based animations and geometric patterns
+// Generate animated avatars
 const generateAnimatedAvatar = (playerName, role) => {
   const colors = {
     'Batsman': ['#FFD700', '#FF6B35', '#F7931E'],
@@ -23,7 +23,7 @@ const generateAnimatedAvatar = (playerName, role) => {
 
 // Animated Avatar Component
 const AnimatedAvatar = ({ player, size = 'w-16 h-16' }) => {
-  const avatar = generateAnimatedAvatar(player.name, player.role || player.position);
+  const avatar = generateAnimatedAvatar(player.name, player.role);
   
   return (
     <motion.div
@@ -34,7 +34,6 @@ const AnimatedAvatar = ({ player, size = 'w-16 h-16' }) => {
       whileHover={{ scale: 1.1, rotate: 5 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      {/* Animated background pattern */}
       <motion.div
         className="absolute inset-0 opacity-30"
         animate={{
@@ -47,29 +46,9 @@ const AnimatedAvatar = ({ player, size = 'w-16 h-16' }) => {
           ease: "linear"
         }}
       >
-        {avatar.pattern === 1 && (
-          <div className="w-full h-full bg-gradient-to-br from-white/20 to-transparent" />
-        )}
-        {avatar.pattern === 2 && (
-          <div className="w-full h-full" style={{
-            background: 'radial-gradient(circle at 30% 30%, white 2px, transparent 2px), radial-gradient(circle at 70% 70%, white 2px, transparent 2px)',
-            backgroundSize: '20px 20px'
-          }} />
-        )}
-        {avatar.pattern === 3 && (
-          <div className="w-full h-full" style={{
-            background: 'linear-gradient(45deg, transparent 40%, white 40%, white 60%, transparent 60%)',
-            backgroundSize: '10px 10px'
-          }} />
-        )}
-        {avatar.pattern === 4 && (
-          <div className="w-full h-full" style={{
-            background: 'conic-gradient(from 0deg, transparent, white, transparent)'
-          }} />
-        )}
+        <div className="w-full h-full bg-gradient-to-br from-white/20 to-transparent" />
       </motion.div>
       
-      {/* Player initials */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.span
           className="text-white font-bold text-lg"
@@ -86,7 +65,6 @@ const AnimatedAvatar = ({ player, size = 'w-16 h-16' }) => {
         </motion.span>
       </div>
       
-      {/* Role indicator */}
       <motion.div
         className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold"
         style={{ backgroundColor: avatar.colors[0] }}
@@ -124,8 +102,6 @@ export default function PlayerStats() {
         fifties: 50,
         highestScore: 113,
         recentForm: [45, 67, 12, 89, 34],
-        position: "Top Order",
-        battingStyle: "Right-hand bat",
         role: "Batsman",
         nationality: "India",
         age: 35,
@@ -142,53 +118,15 @@ export default function PlayerStats() {
         fifties: 40,
         highestScore: 109,
         recentForm: [67, 23, 78, 45, 91],
-        position: "Opener",
-        battingStyle: "Right-hand bat",
         role: "Batsman",
         nationality: "India",
         age: 36,
         price: "16.0 Cr"
-      },
-      {
-        id: 3,
-        name: "KL Rahul",
-        team: "Punjab Kings",
-        runs: 4683,
-        average: 47.31,
-        strikeRate: 135.38,
-        centuries: 4,
-        fifties: 32,
-        highestScore: 132,
-        recentForm: [89, 45, 67, 23, 78],
-        position: "Opener",
-        battingStyle: "Right-hand bat",
-        role: "Batsman",
-        nationality: "India",
-        age: 31,
-        price: "17.0 Cr"
-      },
-      {
-        id: 4,
-        name: "Jos Buttler",
-        team: "Rajasthan Royals",
-        runs: 3582,
-        average: 40.25,
-        strikeRate: 148.97,
-        centuries: 4,
-        fifties: 22,
-        highestScore: 124,
-        recentForm: [103, 89, 45, 67, 23],
-        position: "Opener",
-        battingStyle: "Right-hand bat",
-        role: "Wicket Keeper",
-        nationality: "England",
-        age: 33,
-        price: "10.0 Cr"
       }
     ],
     bowlers: [
       {
-        id: 5,
+        id: 3,
         name: "Jasprit Bumrah",
         team: "Mumbai Indians",
         wickets: 145,
@@ -197,48 +135,15 @@ export default function PlayerStats() {
         strikeRate: 19.9,
         bestFigures: "4/14",
         recentForm: [2, 1, 3, 0, 2],
-        bowlingStyle: "Right-arm fast",
         role: "Bowler",
         nationality: "India",
         age: 30,
         price: "12.0 Cr"
-      },
-      {
-        id: 6,
-        name: "Rashid Khan",
-        team: "Sunrisers Hyderabad",
-        wickets: 93,
-        average: 20.78,
-        economy: 6.33,
-        strikeRate: 19.7,
-        bestFigures: "3/7",
-        recentForm: [1, 3, 2, 1, 2],
-        bowlingStyle: "Right-arm leg-spin",
-        role: "Bowler",
-        nationality: "Afghanistan",
-        age: 25,
-        price: "15.0 Cr"
-      },
-      {
-        id: 7,
-        name: "Yuzvendra Chahal",
-        team: "Rajasthan Royals",
-        wickets: 187,
-        average: 22.62,
-        economy: 7.59,
-        strikeRate: 17.9,
-        bestFigures: "5/40",
-        recentForm: [2, 0, 3, 1, 2],
-        bowlingStyle: "Right-arm leg-spin",
-        role: "Bowler",
-        nationality: "India",
-        age: 33,
-        price: "6.5 Cr"
       }
     ],
     allRounders: [
       {
-        id: 8,
+        id: 4,
         name: "Hardik Pandya",
         team: "Mumbai Indians",
         runs: 2915,
@@ -247,46 +152,10 @@ export default function PlayerStats() {
         strikeRate: 143.89,
         economy: 8.24,
         recentForm: [34, 2, 45, 1, 67],
-        battingStyle: "Right-hand bat",
-        bowlingStyle: "Right-arm fast-medium",
         role: "All Rounder",
         nationality: "India",
         age: 30,
         price: "15.0 Cr"
-      },
-      {
-        id: 9,
-        name: "Ravindra Jadeja",
-        team: "Chennai Super Kings",
-        runs: 2756,
-        wickets: 157,
-        average: 29.95,
-        strikeRate: 127.3,
-        economy: 7.68,
-        recentForm: [23, 3, 34, 2, 45],
-        battingStyle: "Left-hand bat",
-        bowlingStyle: "Slow left-arm orthodox",
-        role: "All Rounder",
-        nationality: "India",
-        age: 35,
-        price: "16.0 Cr"
-      },
-      {
-        id: 10,
-        name: "Andre Russell",
-        team: "Kolkata Knight Riders",
-        runs: 2556,
-        wickets: 73,
-        average: 29.49,
-        strikeRate: 179.33,
-        economy: 8.76,
-        recentForm: [88, 4, 23, 2, 45],
-        battingStyle: "Right-hand bat",
-        bowlingStyle: "Right-arm fast",
-        role: "All Rounder",
-        nationality: "West Indies",
-        age: 36,
-        price: "12.0 Cr"
       }
     ]
   };
@@ -336,7 +205,7 @@ export default function PlayerStats() {
               className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 ${
                 selectedCategory === category.id
                   ? `bg-gradient-to-r ${category.color} text-white shadow-lg transform scale-105`
-                  : 'bg-white/10 text-white hover:bg-white/20 hover:scale-102'
+                  : 'bg-white/10 text-white hover:bg-white/20'
               }`}
             >
               <Icon size={20} />
@@ -378,110 +247,27 @@ export default function PlayerStats() {
                   <Star className="text-yellow-400" size={16} />
                   <span className="text-yellow-400 text-sm font-bold">Featured Player</span>
                 </div>
-                <div className="flex items-center gap-4 mt-2 text-sm text-white/70">
-                  <span>🏳️ {selectedPlayer.nationality}</span>
-                  <span>🎂 {selectedPlayer.age} years</span>
-                  <span>💰 ₹{selectedPlayer.price}</span>
-                </div>
               </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               {selectedCategory === 'batsmen' && (
                 <>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <motion.div className="bg-white/10 rounded-xl p-4 text-center" whileHover={{ scale: 1.05 }}>
                     <div className="text-2xl font-bold text-yellow-400">{selectedPlayer.runs}</div>
                     <div className="text-white/70 text-sm">Runs</div>
                   </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <motion.div className="bg-white/10 rounded-xl p-4 text-center" whileHover={{ scale: 1.05 }}>
                     <div className="text-2xl font-bold text-green-400">{selectedPlayer.average}</div>
                     <div className="text-white/70 text-sm">Average</div>
                   </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <motion.div className="bg-white/10 rounded-xl p-4 text-center" whileHover={{ scale: 1.05 }}>
                     <div className="text-2xl font-bold text-blue-400">{selectedPlayer.strikeRate}</div>
                     <div className="text-white/70 text-sm">Strike Rate</div>
                   </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <motion.div className="bg-white/10 rounded-xl p-4 text-center" whileHover={{ scale: 1.05 }}>
                     <div className="text-2xl font-bold text-purple-400">{selectedPlayer.centuries}</div>
                     <div className="text-white/70 text-sm">Centuries</div>
-                  </motion.div>
-                </>
-              )}
-
-              {selectedCategory === 'bowlers' && (
-                <>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-red-400">{selectedPlayer.wickets}</div>
-                    <div className="text-white/70 text-sm">Wickets</div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-green-400">{selectedPlayer.average}</div>
-                    <div className="text-white/70 text-sm">Average</div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-blue-400">{selectedPlayer.economy}</div>
-                    <div className="text-white/70 text-sm">Economy</div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-purple-400">{selectedPlayer.bestFigures}</div>
-                    <div className="text-white/70 text-sm">Best Figures</div>
-                  </motion.div>
-                </>
-              )}
-
-              {selectedCategory === 'allRounders' && (
-                <>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-yellow-400">{selectedPlayer.runs}</div>
-                    <div className="text-white/70 text-sm">Runs</div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-red-400">{selectedPlayer.wickets}</div>
-                    <div className="text-white/70 text-sm">Wickets</div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-green-400">{selectedPlayer.average}</div>
-                    <div className="text-white/70 text-sm">Batting Avg</div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-white/10 rounded-xl p-4 text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-2xl font-bold text-blue-400">{selectedPlayer.strikeRate}</div>
-                    <div className="text-white/70 text-sm">Strike Rate</div>
                   </motion.div>
                 </>
               )}
@@ -508,38 +294,6 @@ export default function PlayerStats() {
                     {score}
                   </motion.div>
                 ))}
-              </div>
-            </div>
-
-            {/* Player Style Information */}
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white/10 rounded-xl p-4">
-                <h5 className="text-white font-bold mb-2">Playing Style</h5>
-                <div className="text-white/80 text-sm space-y-1">
-                  {selectedPlayer.battingStyle && (
-                    <p><span className="text-blue-300">Batting:</span> {selectedPlayer.battingStyle}</p>
-                  )}
-                  {selectedPlayer.bowlingStyle && (
-                    <p><span className="text-red-300">Bowling:</span> {selectedPlayer.bowlingStyle}</p>
-                  )}
-                  {selectedPlayer.position && (
-                    <p><span className="text-green-300">Position:</span> {selectedPlayer.position}</p>
-                  )}
-                </div>
-              </div>
-              <div className="bg-white/10 rounded-xl p-4">
-                <h5 className="text-white font-bold mb-2">Career Highlights</h5>
-                <div className="text-white/80 text-sm space-y-1">
-                  {selectedPlayer.highestScore && (
-                    <p><span className="text-yellow-300">Highest Score:</span> {selectedPlayer.highestScore}</p>
-                  )}
-                  {selectedPlayer.bestFigures && (
-                    <p><span className="text-red-300">Best Bowling:</span> {selectedPlayer.bestFigures}</p>
-                  )}
-                  {selectedPlayer.fifties && (
-                    <p><span className="text-green-300">Fifties:</span> {selectedPlayer.fifties}</p>
-                  )}
-                </div>
               </div>
             </div>
           </motion.div>
@@ -662,44 +416,6 @@ export default function PlayerStats() {
               </motion.div>
             </motion.div>
           ))}
-        </div>
-      </motion.div>
-
-      {/* Statistics Summary */}
-      <motion.div
-        className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-lg rounded-3xl p-8 border border-blue-400/30"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <h3 className="text-2xl font-bold text-white mb-6 text-center">
-          🏆 Category Statistics
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {categories.map((category, index) => {
-            const players = playerData[category.id];
-            const totalPlayers = players.length;
-            const avgAge = Math.round(players.reduce((sum, p) => sum + p.age, 0) / totalPlayers);
-            
-            return (
-              <motion.div
-                key={category.id}
-                className="bg-white/10 rounded-2xl p-6 text-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <category.icon className="text-white mx-auto mb-3" size={32} />
-                <h4 className="text-lg font-bold text-white mb-2">{category.label}</h4>
-                <div className="space-y-2 text-sm text-white/80">
-                  <p>Total Players: <span className="text-blue-400 font-bold">{totalPlayers}</span></p>
-                  <p>Average Age: <span className="text-green-400 font-bold">{avgAge} years</span></p>
-                  <p>Category: <span className="text-yellow-400 font-bold">{category.id}</span></p>
-                </div>
-              </motion.div>
-            );
-          })}
         </div>
       </motion.div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
-import { Trophy, TrendingUp, Target } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Trophy, TrendingUp } from 'lucide-react';
 
 const teamLogos = {
   'Mumbai Indians': 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
@@ -23,10 +23,7 @@ export default function TeamComparison() {
       avgConceded: 172,
       batting: 85,
       bowling: 78,
-      fielding: 82,
-      experience: 90,
-      form: 75,
-      homeAdvantage: 88
+      fielding: 82
     },
     'Chennai Super Kings': {
       matches: 14,
@@ -37,10 +34,7 @@ export default function TeamComparison() {
       avgConceded: 175,
       batting: 82,
       bowling: 85,
-      fielding: 88,
-      experience: 95,
-      form: 80,
-      homeAdvantage: 85
+      fielding: 88
     },
     'Royal Challengers Bangalore': {
       matches: 14,
@@ -51,10 +45,7 @@ export default function TeamComparison() {
       avgConceded: 180,
       batting: 88,
       bowling: 72,
-      fielding: 75,
-      experience: 80,
-      form: 70,
-      homeAdvantage: 82
+      fielding: 75
     },
     'Kolkata Knight Riders': {
       matches: 14,
@@ -65,10 +56,7 @@ export default function TeamComparison() {
       avgConceded: 185,
       batting: 75,
       bowling: 80,
-      fielding: 78,
-      experience: 85,
-      form: 65,
-      homeAdvantage: 80
+      fielding: 78
     }
   };
 
@@ -101,18 +89,6 @@ export default function TeamComparison() {
         [selectedTeams[0]]: teamStats[selectedTeams[0]].fielding,
         [selectedTeams[1]]: teamStats[selectedTeams[1]].fielding
       }
-    ];
-  };
-
-  const getRadarData = (team) => {
-    const stats = teamStats[team];
-    return [
-      { subject: 'Batting', value: stats.batting, fullMark: 100 },
-      { subject: 'Bowling', value: stats.bowling, fullMark: 100 },
-      { subject: 'Fielding', value: stats.fielding, fullMark: 100 },
-      { subject: 'Experience', value: stats.experience, fullMark: 100 },
-      { subject: 'Form', value: stats.form, fullMark: 100 },
-      { subject: 'Home Advantage', value: stats.homeAdvantage, fullMark: 100 }
     ];
   };
 
@@ -172,82 +148,37 @@ export default function TeamComparison() {
         </div>
       </motion.div>
 
-      {/* Head-to-Head Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <motion.div 
-          className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <TrendingUp className="text-blue-400" size={28} />
-            Performance Comparison
-          </h3>
-          
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={getComparisonData()}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
-                <XAxis dataKey="metric" stroke="#ffffff80" />
-                <YAxis stroke="#ffffff80" />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(0,0,0,0.8)', 
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    borderRadius: '12px'
-                  }}
-                />
-                <Bar dataKey={selectedTeams[0]} fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                <Bar dataKey={selectedTeams[1]} fill="#ef4444" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <Target className="text-green-400" size={28} />
-            Team Strengths
-          </h3>
-          
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart data={getRadarData(selectedTeams[0])}>
-                <PolarGrid stroke="#ffffff20" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: '#ffffff80', fontSize: 12 }} />
-                <PolarRadiusAxis 
-                  angle={90} 
-                  domain={[0, 100]} 
-                  tick={{ fill: '#ffffff60', fontSize: 10 }}
-                />
-                <Radar
-                  name={selectedTeams[0]}
-                  dataKey="value"
-                  stroke="#3b82f6"
-                  fill="#3b82f6"
-                  fillOpacity={0.3}
-                  strokeWidth={2}
-                />
-                <Radar
-                  name={selectedTeams[1]}
-                  dataKey="value"
-                  data={getRadarData(selectedTeams[1])}
-                  stroke="#ef4444"
-                  fill="#ef4444"
-                  fillOpacity={0.3}
-                  strokeWidth={2}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-      </div>
+      {/* Performance Comparison */}
+      <motion.div 
+        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          <TrendingUp className="text-blue-400" size={28} />
+          Performance Comparison
+        </h3>
+        
+        <div className="h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={getComparisonData()}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
+              <XAxis dataKey="metric" stroke="#ffffff80" />
+              <YAxis stroke="#ffffff80" />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: 'rgba(0,0,0,0.8)', 
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '12px'
+                }}
+              />
+              <Bar dataKey={selectedTeams[0]} fill="#3b82f6" radius={[4, 4, 0, 0]} />
+              <Bar dataKey={selectedTeams[1]} fill="#ef4444" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </motion.div>
 
       {/* Detailed Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

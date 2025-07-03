@@ -6,14 +6,7 @@ import { Target, RefreshCw, Star } from 'lucide-react';
 const completeTeamData = {
   'CSK': {
     fullName: 'Chennai Super Kings',
-    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: {
-      primary: '#FFFF3C',
-      secondary: '#F99D1C',
-      accent: '#1F4788'
-    },
-    captain: 'MS Dhoni',
-    homeGround: 'MA Chidambaram Stadium',
+    colors: { primary: '#FFFF3C', secondary: '#F99D1C' },
     animatedLogo: '🦁',
     players: {
       'MS Dhoni': {
@@ -39,25 +32,12 @@ const completeTeamData = {
         avatar: '⚡',
         position: { x: 50, y: 10 },
         stats: { wickets: 59, economy: 7.28, average: 27.81 }
-      },
-      'Moeen Ali': {
-        role: 'All Rounder',
-        avatar: '⭐',
-        position: { x: 70, y: 40 },
-        stats: { runs: 1162, wickets: 25, strikeRate: 157.59 }
       }
     }
   },
   'MI': {
     fullName: 'Mumbai Indians',
-    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: {
-      primary: '#004BA0',
-      secondary: '#D1AB3E',
-      accent: '#FFFFFF'
-    },
-    captain: 'Rohit Sharma',
-    homeGround: 'Wankhede Stadium',
+    colors: { primary: '#004BA0', secondary: '#D1AB3E' },
     animatedLogo: '🏏',
     players: {
       'Rohit Sharma': {
@@ -83,104 +63,36 @@ const completeTeamData = {
         avatar: '🥅',
         position: { x: 50, y: 85 },
         stats: { runs: 2644, average: 29.93, strikeRate: 135.04 }
-      },
-      'Kieron Pollard': {
-        role: 'All Rounder',
-        avatar: '⭐',
-        position: { x: 70, y: 60 },
-        stats: { runs: 3412, wickets: 69, strikeRate: 147.32 }
-      }
-    }
-  },
-  'RCB': {
-    fullName: 'Royal Challengers Bangalore',
-    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: {
-      primary: '#EC1C24',
-      secondary: '#FFD700',
-      accent: '#000000'
-    },
-    captain: 'Virat Kohli',
-    homeGround: 'M. Chinnaswamy Stadium',
-    animatedLogo: '👑',
-    players: {
-      'Virat Kohli': {
-        role: 'Batsman',
-        avatar: '🏏',
-        position: { x: 20, y: 20 },
-        stats: { runs: 7263, average: 37.25, strikeRate: 131.97 }
-      },
-      'Glenn Maxwell': {
-        role: 'All Rounder',
-        avatar: '⭐',
-        position: { x: 40, y: 50 },
-        stats: { runs: 2771, wickets: 32, strikeRate: 154.67 }
-      },
-      'Mohammed Siraj': {
-        role: 'Bowler',
-        avatar: '⚡',
-        position: { x: 50, y: 10 },
-        stats: { wickets: 93, economy: 8.32, average: 26.77 }
-      },
-      'Faf du Plessis': {
-        role: 'Batsman',
-        avatar: '🏏',
-        position: { x: 30, y: 30 },
-        stats: { runs: 2935, average: 34.94, strikeRate: 131.09 }
-      },
-      'Dinesh Karthik': {
-        role: 'Wicket Keeper',
-        avatar: '🥅',
-        position: { x: 50, y: 85 },
-        stats: { runs: 4842, average: 26.32, strikeRate: 135.36 }
-      }
-    }
-  },
-  'KKR': {
-    fullName: 'Kolkata Knight Riders',
-    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-    colors: {
-      primary: '#3A225D',
-      secondary: '#B3A123',
-      accent: '#FFFFFF'
-    },
-    captain: 'Shreyas Iyer',
-    homeGround: 'Eden Gardens',
-    animatedLogo: '⚔️',
-    players: {
-      'Shreyas Iyer': {
-        role: 'Batsman',
-        avatar: '🏏',
-        position: { x: 20, y: 20 },
-        stats: { runs: 3127, average: 31.27, strikeRate: 123.89 }
-      },
-      'Andre Russell': {
-        role: 'All Rounder',
-        avatar: '⭐',
-        position: { x: 40, y: 50 },
-        stats: { runs: 2556, wickets: 73, strikeRate: 179.33 }
-      },
-      'Sunil Narine': {
-        role: 'All Rounder',
-        avatar: '⭐',
-        position: { x: 30, y: 60 },
-        stats: { runs: 1025, wickets: 180, strikeRate: 168.3 }
-      },
-      'Varun Chakravarthy': {
-        role: 'Bowler',
-        avatar: '⚡',
-        position: { x: 50, y: 10 },
-        stats: { wickets: 65, economy: 7.05, average: 23.2 }
-      },
-      'Dinesh Karthik': {
-        role: 'Wicket Keeper',
-        avatar: '🥅',
-        position: { x: 50, y: 85 },
-        stats: { runs: 4842, average: 26.32, strikeRate: 135.36 }
       }
     }
   }
 };
+
+// Generate dynamic live match data
+function generateLiveMatchData(battingTeam, bowlingTeam) {
+  const battingPlayers = Object.keys(completeTeamData[battingTeam]?.players || {});
+  
+  return {
+    currentScore: { 
+      runs: Math.floor(Math.random() * 80) + 120, 
+      wickets: Math.floor(Math.random() * 6) + 2, 
+      overs: (Math.floor(Math.random() * 40) + 120) / 10 
+    },
+    target: Math.floor(Math.random() * 50) + 180,
+    required: { 
+      runs: Math.floor(Math.random() * 40) + 20, 
+      balls: Math.floor(Math.random() * 30) + 15 
+    },
+    currentBatsmen: [
+      battingPlayers[0] || 'Player 1',
+      battingPlayers[1] || 'Player 2'
+    ],
+    runRate: { 
+      current: (Math.random() * 4 + 7).toFixed(2), 
+      required: (Math.random() * 3 + 8).toFixed(2) 
+    }
+  };
+}
 
 // Animated Player Avatar Component
 const AnimatedPlayerAvatar = ({ player, playerData, isActive, onClick }) => {
@@ -200,151 +112,31 @@ const AnimatedPlayerAvatar = ({ player, playerData, isActive, onClick }) => {
         transform: 'translate(-50%, -50%)'
       }}
       whileHover={{ scale: 1.3 }}
-      whileTap={{ scale: 0.9 }}
       onClick={() => onClick(player, playerData)}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
         scale: isActive ? 1.4 : 1,
         boxShadow: isActive ? `0 0 25px ${roleColors[playerData.role]}` : 'none'
       }}
-      transition={{ delay: Math.random() * 0.5 }}
     >
-      <div className="relative">
-        <motion.div 
-          className={`w-16 h-16 rounded-full border-4 overflow-hidden flex items-center justify-center text-2xl ${
-            isActive ? 'border-yellow-400 animate-pulse' : 'border-white'
-          }`}
-          style={{ 
-            background: `linear-gradient(135deg, ${roleColors[playerData.role]}, ${roleColors[playerData.role]}80)`
-          }}
-          animate={{
-            rotate: [0, 5, -5, 0],
-            scale: [1, 1.05, 1]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <motion.span
-            animate={{
-              scale: [1, 1.1, 1]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            {playerData.avatar}
-          </motion.span>
-        </motion.div>
-        
-        <motion.div 
-          className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded text-xs font-bold text-white whitespace-nowrap"
-          style={{ backgroundColor: roleColors[playerData.role] }}
-          animate={{
-            y: [-2, 2, -2]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          {player.split(' ').pop()}
-        </motion.div>
-        
-        <motion.div 
-          className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
-          style={{ backgroundColor: roleColors[playerData.role] }}
-          animate={{
-            rotate: [0, 360]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        >
-          {playerData.role === 'Batsman' ? 'B' : 
-           playerData.role === 'Bowler' ? 'BL' : 
-           playerData.role === 'All Rounder' ? 'AR' : 'WK'}
-        </motion.div>
-        
-        {isActive && (
-          <motion.div
-            className="absolute -top-4 left-1/2 transform -translate-x-1/2"
-            animate={{ y: [-5, 5, -5] }}
-            transition={{ duration: 1, repeat: Infinity }}
-          >
-            <Star className="text-yellow-400" size={16} />
-          </motion.div>
-        )}
-      </div>
+      <motion.div 
+        className="w-16 h-16 rounded-full border-4 flex items-center justify-center text-2xl"
+        style={{ background: `linear-gradient(135deg, ${roleColors[playerData.role]}, ${roleColors[playerData.role]}80)` }}
+        animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 3, repeat: Infinity }}
+      >
+        {playerData.avatar}
+      </motion.div>
     </motion.div>
   );
 };
 
-// Generate dynamic live match data based on teams
-function generateLiveMatchData(battingTeam, bowlingTeam) {
-  const battingPlayers = Object.keys(completeTeamData[battingTeam]?.players || {});
-  const bowlingPlayers = Object.keys(completeTeamData[bowlingTeam]?.players || {});
-  
-  return {
-    currentScore: { 
-      runs: Math.floor(Math.random() * 80) + 120, 
-      wickets: Math.floor(Math.random() * 6) + 2, 
-      overs: (Math.floor(Math.random() * 40) + 120) / 10 
-    },
-    target: Math.floor(Math.random() * 50) + 180,
-    required: { 
-      runs: Math.floor(Math.random() * 40) + 20, 
-      balls: Math.floor(Math.random() * 30) + 15 
-    },
-    currentBatsmen: [
-      battingPlayers[Math.floor(Math.random() * battingPlayers.length)] || 'Player 1',
-      battingPlayers[Math.floor(Math.random() * battingPlayers.length)] || 'Player 2'
-    ],
-    currentBowler: bowlingPlayers[Math.floor(Math.random() * bowlingPlayers.length)] || 'Bowler 1',
-    momentum: Math.random() > 0.5 ? battingTeam : bowlingTeam,
-    runRate: { 
-      current: (Math.random() * 4 + 7).toFixed(2), 
-      required: (Math.random() * 3 + 8).toFixed(2) 
-    }
-  };
-}
-
-// Team Selector Component
-function TeamSelector({ teams, selectedTeam, onTeamSelect, label }) {
-  return (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-blue-200">{label}</label>
-      <select
-        value={selectedTeam}
-        onChange={(e) => onTeamSelect(e.target.value)}
-        className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
-      >
-        {teams.map(team => (
-          <option key={team} value={team} className="text-gray-900">
-            {completeTeamData[team]?.fullName || team}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-// 2D Cricket Field Component with Animated Players
+// 2D Cricket Field Component
 function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect, liveMatchData }) {
   const battingTeamData = completeTeamData[battingTeam];
-  const bowlingTeamData = completeTeamData[bowlingTeam];
 
-  if (!battingTeamData || !bowlingTeamData) {
+  if (!battingTeamData) {
     return (
-      <div className="relative w-full h-96 bg-gradient-to-br from-green-600 to-green-800 rounded-3xl overflow-hidden border-4 border-white/30 flex items-center justify-center">
+      <div className="relative w-full h-96 bg-gradient-to-br from-green-600 to-green-800 rounded-3xl overflow-hidden flex items-center justify-center">
         <p className="text-white text-xl">Loading field...</p>
       </div>
     );
@@ -383,13 +175,6 @@ function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         />
-        
-        {/* 30-yard Circle */}
-        <motion.div 
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-white/20 rounded-full"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-        />
       </motion.div>
 
       {/* Batting Team Players */}
@@ -403,7 +188,7 @@ function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect
         />
       ))}
 
-      {/* Field Labels with Animation */}
+      {/* Field Labels */}
       <motion.div 
         className="absolute top-4 left-4 text-white font-bold"
         initial={{ opacity: 0, x: -20 }}
@@ -421,29 +206,11 @@ function CricketField({ battingTeam, bowlingTeam, selectedPlayer, onPlayerSelect
           <span className="text-2xl">{battingTeamData.animatedLogo}</span>
         </div>
       </motion.div>
-      
-      <motion.div 
-        className="absolute top-4 right-4 text-white font-bold"
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">{bowlingTeamData.animatedLogo}</span>
-          <span>{bowlingTeam} (Bowling)</span>
-          <motion.div 
-            className="w-4 h-4 rounded-full"
-            style={{ backgroundColor: bowlingTeamData.colors.primary }}
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </div>
-      </motion.div>
     </div>
   );
 }
 
-// Enhanced Live Scoreboard Component
+// Live Scoreboard Component
 function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -453,9 +220,8 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
   }, []);
 
   const battingTeamData = completeTeamData[battingTeam];
-  const bowlingTeamData = completeTeamData[bowlingTeam];
 
-  if (!battingTeamData || !bowlingTeamData) {
+  if (!battingTeamData) {
     return (
       <div className="bg-gradient-to-r from-gray-900 to-black rounded-3xl p-6 border-4 border-yellow-400">
         <p className="text-white text-center">Loading scoreboard...</p>
@@ -480,7 +246,7 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
           </motion.div>
           <div>
             <h3 className="text-white font-bold text-lg">{battingTeamData.fullName}</h3>
-            <p className="text-gray-400 text-sm">vs {bowlingTeamData.fullName}</p>
+            <p className="text-gray-400 text-sm">vs {completeTeamData[bowlingTeam]?.fullName}</p>
           </div>
         </div>
         
@@ -497,10 +263,7 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
       </div>
 
       <div className="grid grid-cols-3 gap-6 mb-6">
-        <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
+        <motion.div className="text-center">
           <motion.div 
             className="text-4xl font-bold text-white"
             animate={{ scale: [1, 1.05, 1] }}
@@ -510,63 +273,26 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
           </motion.div>
           <div className="text-gray-400">Runs</div>
         </motion.div>
-        <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <motion.div 
-            className="text-4xl font-bold text-red-400"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-          >
+        <motion.div className="text-center">
+          <motion.div className="text-4xl font-bold text-red-400">
             {liveMatchData.currentScore.wickets}
           </motion.div>
           <div className="text-gray-400">Wickets</div>
         </motion.div>
-        <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <motion.div 
-            className="text-4xl font-bold text-blue-400"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
-          >
+        <motion.div className="text-center">
+          <motion.div className="text-4xl font-bold text-blue-400">
             {liveMatchData.currentScore.overs}
           </motion.div>
           <div className="text-gray-400">Overs</div>
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <motion.div 
-          className="bg-white/10 rounded-xl p-4 text-center"
-          whileHover={{ scale: 1.02 }}
-        >
-          <div className="text-2xl font-bold text-green-400">{liveMatchData.target}</div>
-          <div className="text-white/70 text-sm">Target</div>
-        </motion.div>
-        <motion.div 
-          className="bg-white/10 rounded-xl p-4 text-center"
-          whileHover={{ scale: 1.02 }}
-        >
-          <div className="text-2xl font-bold text-yellow-400">{liveMatchData.required.runs}</div>
-          <div className="text-white/70 text-sm">Required ({liveMatchData.required.balls} balls)</div>
-        </motion.div>
-      </div>
-
       <div className="grid grid-cols-2 gap-4">
-        <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
+        <motion.div className="text-center">
           <div className="text-lg font-bold text-blue-400">{liveMatchData.runRate.current}</div>
           <div className="text-white/70 text-sm">Current RR</div>
         </motion.div>
-        <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
+        <motion.div className="text-center">
           <div className="text-lg font-bold text-orange-400">{liveMatchData.runRate.required}</div>
           <div className="text-white/70 text-sm">Required RR</div>
         </motion.div>
@@ -576,32 +302,20 @@ function LiveScoreboard({ battingTeam, bowlingTeam, liveMatchData }) {
 }
 
 // Main Cricket Field Visualization Component
-export default function CricketFieldVisualization({ 
-  initialBattingTeam = 'CSK', 
-  initialBowlingTeam = 'MI'
-}) {
-  const [battingTeam, setBattingTeam] = useState(initialBattingTeam);
-  const [bowlingTeam, setBowlingTeam] = useState(initialBowlingTeam);
+export default function CricketFieldVisualization() {
+  const [battingTeam, setBattingTeam] = useState('CSK');
+  const [bowlingTeam, setBowlingTeam] = useState('MI');
   const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [liveMatchData, setLiveMatchData] = useState(
-    generateLiveMatchData(initialBattingTeam, initialBowlingTeam)
-  );
+  const [liveMatchData, setLiveMatchData] = useState(generateLiveMatchData('CSK', 'MI'));
 
   const availableTeams = Object.keys(completeTeamData);
 
   const handlePlayerSelect = (playerName, playerData) => {
-    const team = Object.keys(completeTeamData).find(t => 
-      completeTeamData[t].players && completeTeamData[t].players[playerName]
-    );
-    
-    if (team) {
-      setSelectedPlayer({
-        name: playerName,
-        data: playerData,
-        team: completeTeamData[team].fullName,
-        teamColors: completeTeamData[team].colors
-      });
-    }
+    setSelectedPlayer({
+      name: playerName,
+      data: playerData,
+      team: completeTeamData[battingTeam].fullName
+    });
   };
 
   const swapTeams = () => {
@@ -618,10 +332,6 @@ export default function CricketFieldVisualization({
     setSelectedPlayer(null);
   };
 
-  useEffect(() => {
-    setLiveMatchData(generateLiveMatchData(battingTeam, bowlingTeam));
-  }, [battingTeam, bowlingTeam]);
-
   return (
     <div className="space-y-8">
       <motion.div
@@ -630,10 +340,10 @@ export default function CricketFieldVisualization({
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-4xl font-bold text-white mb-4">
-          🏏 Live Cricket Match Visualization with Animated Players
+          🏏 Live Cricket Match Visualization
         </h1>
         <p className="text-blue-200 text-lg">
-          Interactive 2D field with animated player avatars and real-time statistics
+          Interactive 2D field with animated player avatars
         </p>
       </motion.div>
 
@@ -643,19 +353,35 @@ export default function CricketFieldVisualization({
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-          <TeamSelector
-            teams={availableTeams.filter(t => t !== bowlingTeam)}
-            selectedTeam={battingTeam}
-            onTeamSelect={setBattingTeam}
-            label="Batting Team"
-          />
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-blue-200">Batting Team</label>
+            <select
+              value={battingTeam}
+              onChange={(e) => setBattingTeam(e.target.value)}
+              className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
+            >
+              {availableTeams.filter(t => t !== bowlingTeam).map(team => (
+                <option key={team} value={team} className="text-gray-900">
+                  {completeTeamData[team].fullName}
+                </option>
+              ))}
+            </select>
+          </div>
           
-          <TeamSelector
-            teams={availableTeams.filter(t => t !== battingTeam)}
-            selectedTeam={bowlingTeam}
-            onTeamSelect={setBowlingTeam}
-            label="Bowling Team"
-          />
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-blue-200">Bowling Team</label>
+            <select
+              value={bowlingTeam}
+              onChange={(e) => setBowlingTeam(e.target.value)}
+              className="w-full p-3 bg-white/20 border border-white/30 rounded-xl text-white backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
+            >
+              {availableTeams.filter(t => t !== battingTeam).map(team => (
+                <option key={team} value={team} className="text-gray-900">
+                  {completeTeamData[team].fullName}
+                </option>
+              ))}
+            </select>
+          </div>
           
           <motion.button
             onClick={swapTeams}
@@ -664,7 +390,7 @@ export default function CricketFieldVisualization({
             whileTap={{ scale: 0.95 }}
           >
             <RefreshCw size={20} className="inline mr-2" />
-            Swap Innings
+            Swap
           </motion.button>
           
           <motion.button
@@ -674,26 +400,20 @@ export default function CricketFieldVisualization({
             whileTap={{ scale: 0.95 }}
           >
             <Target size={20} className="inline mr-2" />
-            Update Match
+            Update
           </motion.button>
         </div>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <CricketField
-              battingTeam={battingTeam}
-              bowlingTeam={bowlingTeam}
-              selectedPlayer={selectedPlayer}
-              onPlayerSelect={handlePlayerSelect}
-              liveMatchData={liveMatchData}
-            />
-          </motion.div>
+          <CricketField
+            battingTeam={battingTeam}
+            bowlingTeam={bowlingTeam}
+            selectedPlayer={selectedPlayer}
+            onPlayerSelect={handlePlayerSelect}
+            liveMatchData={liveMatchData}
+          />
         </div>
 
         <div>
