@@ -1,6 +1,6 @@
 {
-  "short_name": "Sports Tracker",
-  "name": "Sports Performance Tracking Application",
+  "short_name": "CricketPredictPro",
+  "name": "Cricket Prediction Application",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1e3a8a",
+  "background_color": "#1e40af"
 }

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Target, Users, Download, Smartphone, Play, Eye } from 'lucide-react';
+import { Trophy, Target, Users, Download, Smartphone, Eye } from 'lucide-react';
 import CricketFieldVisualization from './CricketFieldVisualization';
 
 // Enhanced team data with animated logos
 const enhancedTeamData = {
   'Mumbai Indians': {
     shortName: 'MI',
-    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
     colors: ['#004BA0', '#D1AB3E'],
     homeGround: 'Wankhede Stadium',
     captain: 'Rohit Sharma',
@@ -17,7 +16,6 @@ const enhancedTeamData = {
   },
   'Chennai Super Kings': {
     shortName: 'CSK',
-    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
     colors: ['#FFFF3C', '#F99D1C'],
     homeGround: 'MA Chidambaram Stadium',
     captain: 'MS Dhoni',
@@ -27,7 +25,6 @@ const enhancedTeamData = {
   },
   'Royal Challengers Bangalore': {
     shortName: 'RCB',
-    logo: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
     colors: ['#EC1C24', '#FFD700'],
     homeGround: 'M. Chinnaswamy Stadium',
     captain: 'Virat Kohli',
@@ -37,7 +34,6 @@ const enhancedTeamData = {
   },
   'Kolkata Knight Riders': {
     shortName: 'KKR',
-    logo: 'https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
     colors: ['#3A225D', '#B3A123'],
     homeGround: 'Eden Gardens',
     captain: 'Shreyas Iyer',
